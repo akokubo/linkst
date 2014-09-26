@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @status.user %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @status.category %>
+</p>
+
+<p>
+  <strong>Experience:</strong>
+  <%= @status.experience %>
+</p>
+
+<%= link_to 'Edit', edit_status_path(@status) %> |
+<%= link_to 'Back', statuses_path %>

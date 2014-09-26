@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140926114154) do
+ActiveRecord::Schema.define(version: 20140926150920) do
 
   create_table "acquisitions", force: true do |t|
     t.integer  "mission_id"
@@ -24,11 +24,31 @@ ActiveRecord::Schema.define(version: 20140926114154) do
   add_index "acquisitions", ["category_id"], name: "index_acquisitions_on_category_id"
   add_index "acquisitions", ["mission_id"], name: "index_acquisitions_on_mission_id"
 
+  create_table "assigns", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "mission_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "assigns", ["mission_id"], name: "index_assigns_on_mission_id"
+  add_index "assigns", ["user_id"], name: "index_assigns_on_user_id"
+
   create_table "categories", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "histories", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "mission_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "histories", ["mission_id"], name: "index_histories_on_mission_id"
+  add_index "histories", ["user_id"], name: "index_histories_on_user_id"
 
   create_table "levels", force: true do |t|
     t.integer  "value"
@@ -53,6 +73,17 @@ ActiveRecord::Schema.define(version: 20140926114154) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "statuses", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "category_id"
+    t.integer  "experience"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "statuses", ["category_id"], name: "index_statuses_on_category_id"
+  add_index "statuses", ["user_id"], name: "index_statuses_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
