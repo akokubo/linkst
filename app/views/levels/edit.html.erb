@@ -1,6 +1,7 @@
-<h1>Editing level</h1>
+<% provide :title,  t("Editing ", model: t('activerecord.models.level').pluralize(:locale)) %>
+<h1><%= yield(:title) %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @level %> |
-<%= link_to 'Back', levels_path %>
+<%= link_to t('Show'), @level %> |
+<%= link_to t('Back'), levels_path %>

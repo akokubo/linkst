@@ -1,19 +1,19 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Mission:</strong>
+  <strong><%= t('activerecord.attributes.acquisition.mission') %>:</strong>
   <%= @acquisition.mission %>
 </p>
 
 <p>
-  <strong>Category:</strong>
+  <strong><%= t('activerecord.attributes.acquisition.category') %>:</strong>
   <%= @acquisition.category %>
 </p>
 
 <p>
-  <strong>Experiences:</strong>
+  <strong><%= t('activerecord.attributes.acquisition.experiences') %>:</strong>
   <%= @acquisition.experiences %>
 </p>
 
-<%= link_to 'Edit', edit_acquisition_path(@acquisition) %> |
-<%= link_to 'Back', acquisitions_path %>
+<%= link_to t('Edit'), edit_acquisition_path(@acquisition) %> |
+<%= link_to t('Back'), acquisitions_path %>

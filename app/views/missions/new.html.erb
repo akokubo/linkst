@@ -1,5 +1,6 @@
-<h1>New mission</h1>
+<% provide :title,  t("New ", model: t('activerecord.models.mission').pluralize(:locale)) %>
+<h1><%= yield(:title) %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Back', missions_path %>
+<%= link_to t('Back'), missions_path %>

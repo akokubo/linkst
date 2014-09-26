@@ -1,6 +1,7 @@
-<h1>Editing acquisition</h1>
+<% provide :title,  t("Editing ", model: t('activerecord.models.acquisition').pluralize(:locale)) %>
+<h1><%= yield(:title) %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @acquisition %> |
-<%= link_to 'Back', acquisitions_path %>
+<%= link_to t('Show'), @acquisition %> |
+<%= link_to t('Back'), acquisitions_path %>

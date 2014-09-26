@@ -1,14 +1,14 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Value:</strong>
+  <strong><%= t('activerecord.attributes.level.value') %>:</strong>
   <%= @level.value %>
 </p>
 
 <p>
-  <strong>Sufficiencies:</strong>
+  <strong><%= t('activerecord.attributes.level.sufficiencies') %>:</strong>
   <%= @level.sufficiencies %>
 </p>
 
-<%= link_to 'Edit', edit_level_path(@level) %> |
-<%= link_to 'Back', levels_path %>
+<%= link_to t('Edit'), edit_level_path(@level) %> |
+<%= link_to t('Back'), levels_path %>
