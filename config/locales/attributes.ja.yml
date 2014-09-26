@@ -2,6 +2,10 @@ ja:
   activerecord:
     models:
       user: 'ユーザー'
+      category: 'カテゴリー'
+      level: 'レベル'
+      mission: 'ミッション'
+      acquisition: '獲得経験値'
     attributes:
       user:
         name: '名前'
@@ -10,6 +14,23 @@ ja:
         password_confirmation: 'パスワード(確認)'
         remember_me: 'パスワードを記憶'
         current_password: '現在のパスワード'
+      category:
+        name: 'カテゴリー名'
+      level:
+        value: 'レベル'
+        sufficiencies: '次のレベルまで'
+      mission:
+        description: '説明'
+        category: 'カテゴリー'
+        category_id: 'カテゴリーID'
+        level: 'レベル'
+        level_id: 'レベルID'
+      acquisition:
+        mission: 'ミッション'
+        mission_id: 'ミッションID'
+        category: 'カテゴリー'
+        category_id: 'カテゴリーID'
+        experiences: '経験値'
     successful:
       messages:
         created: "%{model}を保存しました。"
