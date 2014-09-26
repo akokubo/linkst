@@ -14,8 +14,8 @@
   <tbody>
     <% @acquisitions.each do |acquisition| %>
       <tr>
-        <td><%= acquisition.mission %></td>
-        <td><%= acquisition.category %></td>
+        <td><%= acquisition.mission.description %></td>
+        <td><%= acquisition.category.name %></td>
         <td><%= acquisition.experience %></td>
         <td><%= link_to t('Show'), acquisition %></td>
         <td><%= link_to t('Edit'), edit_acquisition_path(acquisition) %></td>

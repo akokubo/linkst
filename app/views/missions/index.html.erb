@@ -15,8 +15,8 @@
     <% @missions.each do |mission| %>
       <tr>
         <td><%= mission.description %></td>
-        <td><%= mission.category %></td>
-        <td><%= mission.level %></td>
+        <td><%= mission.category.name %></td>
+        <td><%= mission.level.value %></td>
         <td><%= link_to t('Show'), mission %></td>
         <td><%= link_to t('Edit'), edit_mission_path(mission) %></td>
         <td><%= link_to t('Destroy'), mission, method: :delete, data: { confirm: t('Are you sure?') } %></td>

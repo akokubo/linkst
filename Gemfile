@@ -13,6 +13,8 @@ group :test, :development do
 
   # create UML
   gem 'railroady'
+
+  gem 'faker'
 end
 
 
@@ -22,7 +24,6 @@ group :test do
   gem 'spring-commands-rspec'
   gem 'capybara'
   gem 'factory_girl_rails'
-  gem 'faker'
 end
 
 group :development do
