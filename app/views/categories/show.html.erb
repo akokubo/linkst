@@ -1,9 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong><%= t('activerecord.attributes.category.name') %>:</strong>
   <%= @category.name %>
 </p>
 
-<%= link_to 'Edit', edit_category_path(@category) %> |
-<%= link_to 'Back', categories_path %>
+<%= link_to t('Edit'), edit_category_path(@category) %> |
+<%= link_to t('Back'), categories_path %>
