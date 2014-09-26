@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @level.value %>
+</p>
+
+<p>
+  <strong>Sufficiencies:</strong>
+  <%= @level.sufficiencies %>
+</p>
+
+<%= link_to 'Edit', edit_level_path(@level) %> |
+<%= link_to 'Back', levels_path %>
