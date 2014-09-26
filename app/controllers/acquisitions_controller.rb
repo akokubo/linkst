@@ -69,6 +69,6 @@ class AcquisitionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def acquisition_params
-      params.require(:acquisition).permit(:mission_id, :category_id, :experiences)
+      params.require(:acquisition).permit(:mission_id, :category_id, :experience)
     end
 end

@@ -1,1 +1,1 @@
-json.extract! @acquisition, :id, :mission_id, :category_id, :experiences, :created_at, :updated_at
+json.extract! @acquisition, :id, :mission_id, :category_id, :experience, :created_at, :updated_at

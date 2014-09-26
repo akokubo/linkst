@@ -4,6 +4,6 @@ FactoryGirl.define do
   factory :acquisition do
     mission nil
     category nil
-    experiences 1
+    experience 1
   end
 end

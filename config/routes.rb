@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  resources :assigns
+
+  resources :histories
+
+  resources :statuses
+
   resources :roles
 
   resources :acquisitions
