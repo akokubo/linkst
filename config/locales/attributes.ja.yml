@@ -7,6 +7,9 @@ ja:
       mission: 'ミッション'
       acquisition: '獲得経験値'
       role: 'ロール'
+      status: 'ステータス'
+      history: 'ミッションの履歴'
+      assign: '現在のミッション'
     attributes:
       user:
         name: '名前'
@@ -23,7 +26,7 @@ ja:
         name: 'カテゴリー名'
       level:
         value: 'レベル'
-        sufficiencies: '次のレベルまで'
+        sufficiency: '次のレベルまで'
       mission:
         description: '説明'
         category: 'カテゴリー'
@@ -35,9 +38,25 @@ ja:
         mission_id: 'ミッションID'
         category: 'カテゴリー'
         category_id: 'カテゴリーID'
-        experiences: '経験値'
+        experience: '経験値'
       role:
         name: 'ロール名'
+      status:
+        user: 'ユーザー'
+        user_id: 'ユーザーID'
+        category: 'カテゴリー'
+        category_id: 'カテゴリーID'
+        experience: '経験値'
+      history:
+        user: 'ユーザー'
+        user_id: 'ユーザーID'
+        mission: 'ミッション'
+        mission_id: 'ミッションID'
+      assign:
+        user: 'ユーザー'
+        user_id: 'ユーザーID'
+        mission: 'ミッション'
+        mission_id: 'ミッションID'
     successful:
       messages:
         created: "%{model}を保存しました。"
