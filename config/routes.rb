@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  resources :roles
+
   resources :acquisitions
 
   resources :missions
@@ -8,6 +11,8 @@ Rails.application.routes.draw do
   resources :categories
 
   devise_for :users
+
+  get '/users'  => 'users#index', as: :users
 
   get '/about'   => 'welcome#about',   as: :about
   get '/contact' => 'welcome#contact', as: :contact

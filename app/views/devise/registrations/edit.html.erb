@@ -4,8 +4,21 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
 
+  <div><%= f.label :number %><br />
+  <%= f.text_field :number, autofocus: true %></div>
+
+  <div><%= f.label :role_id %><br />
+  <%= f.text_field :role_id %></div>
+
+  <div><%= f.label :name %><br />
+  <%= f.text_field :name %></div>
+
   <div><%= f.label :email %><br />
-  <%= f.email_field :email, autofocus: true %></div>
+  <%= f.email_field :email %></div>
+
+  <div><%= f.label :idm %><br />
+  <%= f.text_field :idm %></div>
+
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div><%= t("Currently waiting confirmation for") %>: <%= resource.unconfirmed_email %></div>
@@ -23,8 +36,8 @@
   <div><%= f.submit t("Update") %></div>
 <% end %>
 
-<h3>Cancel my account</h3>
+<h3><%= t('Cancel my account') %></h3>
 
-<p>Unhappy? <%= button_to t("Cancel my account"), registration_path(resource_name), data: { confirm: t("Cancel my account") }, method: :delete %></p>
+<p><%= t('Unhappy?') %> <%= button_to t("Cancel my account"), registration_path(resource_name), data: { confirm: t("Cancel my account") }, method: :delete %></p>
 
 <%= link_to t("Back"), :back %>

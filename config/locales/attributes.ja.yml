@@ -6,6 +6,7 @@ ja:
       level: 'レベル'
       mission: 'ミッション'
       acquisition: '獲得経験値'
+      role: 'ロール'
     attributes:
       user:
         name: '名前'
@@ -14,6 +15,10 @@ ja:
         password_confirmation: 'パスワード(確認)'
         remember_me: 'パスワードを記憶'
         current_password: '現在のパスワード'
+        number: '学籍番号'
+        idm: 'IDm'
+        role: 'ロール'
+        role_id: 'ロールID'
       category:
         name: 'カテゴリー名'
       level:
@@ -31,6 +36,8 @@ ja:
         category: 'カテゴリー'
         category_id: 'カテゴリーID'
         experiences: '経験値'
+      role:
+        name: 'ロール名'
     successful:
       messages:
         created: "%{model}を保存しました。"

@@ -1,0 +1,27 @@
+<% provide :title,  t("Listing ", model: t('activerecord.models.user').pluralize(:locale)) %>
+<h1><%= yield(:title) %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= t('activerecord.attributes.user.number') %></th>
+      <th><%= t('activerecord.attributes.user.role') %></th>
+      <th><%= t('activerecord.attributes.user.name') %></th>
+      <th><%= t('activerecord.attributes.user.idm') %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.number %></td>
+        <td><%= user.role.name %></td>
+        <td><%= user.name %></td>
+        <td><%= user.idm %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
