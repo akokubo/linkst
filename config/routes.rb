@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   resources :categories
 
   devise_for :users
+
+  get '/about'   => 'welcome#about',   as: :about
+  get '/contact' => 'welcome#contact', as: :contact
+
   root 'welcome#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
