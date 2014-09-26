@@ -1,19 +1,19 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>User:</strong>
+  <strong><%= t('activerecord.attributes.status.user') %>:</strong>
   <%= @status.user %>
 </p>
 
 <p>
-  <strong>Category:</strong>
+  <strong><%= t('activerecord.attributes.status.category') %>:</strong>
   <%= @status.category %>
 </p>
 
 <p>
-  <strong>Experience:</strong>
+  <strong><%= t('activerecord.attributes.status.experience') %>:</strong>
   <%= @status.experience %>
 </p>
 
-<%= link_to 'Edit', edit_status_path(@status) %> |
-<%= link_to 'Back', statuses_path %>
+<%= link_to t('Edit'), edit_status_path(@status) %> |
+<%= link_to t('Back'), statuses_path %>

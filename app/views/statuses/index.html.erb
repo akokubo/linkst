@@ -1,11 +1,12 @@
-<h1>Listing statuses</h1>
+<% provide :title,  t("Listing ", model: t('activerecord.models.status').pluralize(:locale)) %>
+<h1><%= yield(:title) %></h1>
 
 <table>
   <thead>
     <tr>
-      <th>User</th>
-      <th>Category</th>
-      <th>Experience</th>
+      <th><%= t('activerecord.attributes.status.user') %></th>
+      <th><%= t('activerecord.attributes.status.category') %></th>
+      <th><%= t('activerecord.attributes.status.experience') %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,9 +17,9 @@
         <td><%= status.user %></td>
         <td><%= status.category %></td>
         <td><%= status.experience %></td>
-        <td><%= link_to 'Show', status %></td>
-        <td><%= link_to 'Edit', edit_status_path(status) %></td>
-        <td><%= link_to 'Destroy', status, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t('Show'), status %></td>
+        <td><%= link_to t('Edit'), edit_status_path(status) %></td>
+        <td><%= link_to t('Destroy'), status, method: :delete, data: { confirm: t('Are you sure?') } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +27,4 @@
 
 <br>
 
-<%= link_to 'New Status', new_status_path %>
+<%= link_to t('New ', model: t('activerecord.models.status')), new_status_path %>

@@ -1,10 +1,11 @@
-<h1>Listing assigns</h1>
+<% provide :title,  t("Listing ", model: t('activerecord.models.assign').pluralize(:locale)) %>
+<h1><%= yield(:title) %></h1>
 
 <table>
   <thead>
     <tr>
-      <th>User</th>
-      <th>Mission</th>
+      <th><%= t('activerecord.attributes.assign.user') %></th>
+      <th><%= t('activerecord.attributes.assign.mission') %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,9 +15,9 @@
       <tr>
         <td><%= assign.user %></td>
         <td><%= assign.mission %></td>
-        <td><%= link_to 'Show', assign %></td>
-        <td><%= link_to 'Edit', edit_assign_path(assign) %></td>
-        <td><%= link_to 'Destroy', assign, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t('Show'), assign %></td>
+        <td><%= link_to t('Edit'), edit_assign_path(assign) %></td>
+        <td><%= link_to t('Destroy'), assign, method: :delete, data: { confirm: t('Are you sure?') } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +25,4 @@
 
 <br>
 
-<%= link_to 'New Assign', new_assign_path %>
+<%= link_to t('New ', model: t('activerecord.models.assign')), new_assign_path %>
