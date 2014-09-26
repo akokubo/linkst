@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @mission.description %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @mission.category %>
+</p>
+
+<p>
+  <strong>Level:</strong>
+  <%= @mission.level %>
+</p>
+
+<%= link_to 'Edit', edit_mission_path(@mission) %> |
+<%= link_to 'Back', missions_path %>

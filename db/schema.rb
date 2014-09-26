@@ -11,7 +11,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140922050509) do
+ActiveRecord::Schema.define(version: 20140926065832) do
+
+  create_table "acquisitions", force: true do |t|
+    t.integer  "mission_id"
+    t.integer  "category_id"
+    t.integer  "experiences"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "acquisitions", ["category_id"], name: "index_acquisitions_on_category_id"
+  add_index "acquisitions", ["mission_id"], name: "index_acquisitions_on_mission_id"
+
+  create_table "categories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "levels", force: true do |t|
+    t.integer  "value"
+    t.integer  "sufficiencies"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "missions", force: true do |t|
+    t.text     "description"
+    t.integer  "category_id"
+    t.integer  "level_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "missions", ["category_id"], name: "index_missions_on_category_id"
+  add_index "missions", ["level_id"], name: "index_missions_on_level_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

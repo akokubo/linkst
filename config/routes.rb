@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  resources :acquisitions
+
+  resources :missions
+
+  resources :levels
+
+  resources :categories
+
   devise_for :users
   root 'welcome#index'
 
