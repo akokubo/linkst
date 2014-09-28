@@ -12,13 +12,15 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
+    <%= f.label :user_id, t('activerecord.models.user') %><br>
+    <%= f.collection_select :user_id, @users, :id, :name %>
   </div>
+
   <div class="field">
-    <%= f.label :mission_id %><br>
-    <%= f.text_field :mission_id %>
+    <%= f.label :mission_id, t('activerecord.models.mission') %><br>
+    <%= f.collection_select :mission_id, @missions, :id, :description %>
   </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -2,12 +2,12 @@
 
 <p>
   <strong><%= t('activerecord.attributes.history.user') %>:</strong>
-  <%= @history.user %>
+  <%= @history.user.name %>
 </p>
 
 <p>
   <strong><%= t('activerecord.attributes.history.mission') %>:</strong>
-  <%= @history.mission %>
+  <%= @history.mission.description %>
 </p>
 
 <%= link_to t('Edit'), edit_history_path(@history) %> |
