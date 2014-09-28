@@ -13,6 +13,6 @@ class UsersController < ApplicationController
 
     def set_user
       @categories = Category.all
-      @user = User.find(params[:id])
+      @user = User.find_by(idm: params[:idm])
     end
 end

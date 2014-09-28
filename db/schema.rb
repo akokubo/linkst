@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140928133840) do
+ActiveRecord::Schema.define(version: 20140928144446) do
 
   create_table "acquisitions", force: true do |t|
     t.integer  "mission_id"
@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(version: 20140928133840) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["idm"], name: "index_users_on_idm", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   add_index "users", ["role_id"], name: "index_users_on_role_id"
 

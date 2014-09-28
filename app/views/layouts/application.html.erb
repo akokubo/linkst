@@ -34,15 +34,14 @@
               <li><%= link_to t('activerecord.models.mission').pluralize(:locale), missions_path %></li>
               <!-- <li><%= link_to t('activerecord.models.acquisition').pluralize(:locale), acquisitions_path %></li> -->
               <li class="divider"></li>
-              <li class="dropdown-header">Nav header</li>
-              <li><a href="#">Settings</a></li>
+              <li><%= link_to t('activerecord.models.user').pluralize(:locale), users_path %></li>
               <li><%= link_to t('activerecord.models.status').pluralize(:locale), statuses_path %></li>
               <li><%= link_to t('activerecord.models.history').pluralize(:locale), histories_path %></li>
               <li><%= link_to t('activerecord.models.assign').pluralize(:locale), assigns_path %></li>
             </ul>
           </li>
           <% if user_signed_in? %>
-            <li><%= link_to current_user.name, edit_user_registration_path %></li>
+            <li><%= link_to current_user.name, user_path(idm: current_user.idm) %></li>
             <li><%= link_to t("Sign out"), destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>
           <% else %>
             <li><%= link_to t("Sign in"), new_user_session_path, :class => 'navbar-link'  %></li>
