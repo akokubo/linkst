@@ -14,6 +14,8 @@ class HistoriesController < ApplicationController
 
   # GET /histories/new
   def new
+    @users = User.all
+    @missions = Mission.all
     @history = History.new
   end
 
@@ -25,6 +27,17 @@ class HistoriesController < ApplicationController
   # POST /histories.json
   def create
     @history = History.new(history_params)
+
+    mission = @history.mission
+    user = @history.user
+    @history.recent_experience = user.total_experience
+    mission.acquisitions.each do |acquisition|
+      category_id = acquisition.category_id
+      status = user.statuses.find_by(category_id: category_id)
+      status.experience += acquisition.experience
+      status.save
+    end
+    @history.experience = user.reload.total_experience
 
     respond_to do |format|
       if @history.save

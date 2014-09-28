@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140926151604) do
+ActiveRecord::Schema.define(version: 20140928133840) do
 
   create_table "acquisitions", force: true do |t|
     t.integer  "mission_id"
@@ -45,6 +45,8 @@ ActiveRecord::Schema.define(version: 20140926151604) do
     t.integer  "mission_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "recent_experience"
+    t.integer  "experience"
   end
 
   add_index "histories", ["mission_id"], name: "index_histories_on_mission_id"
