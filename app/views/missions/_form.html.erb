@@ -17,12 +17,23 @@
   </div>
   <div class="field">
     <%= f.label :category_id %><br>
-    <%= f.text_field :category_id %>
+    <%= f.collection_select :category_id, @categories, :id, :name %>
   </div>
   <div class="field">
     <%= f.label :level_id %><br>
-    <%= f.text_field :level_id %>
+    <%= f.collection_select :level_id, @levels, :id, :value %>
   </div>
+  <% @mission.acquisitions.each do |acquisition| %>
+    <%= f.fields_for :acquisitions, acquisition do |a| %>
+      <div class="field">
+      <%= a.label :experience, acquisition.category.name %><br>
+      <%= a.number_field :experience %>
+      <%= a.hidden_field :category_id %>
+      <% if acquisition.id %><%= a.hidden_field :id %><% end %>
+      </div>
+    <% end %>
+  <% end %>
+
   <div class="actions">
     <%= f.submit %>
   </div>

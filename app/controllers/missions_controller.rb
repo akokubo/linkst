@@ -5,6 +5,7 @@ class MissionsController < ApplicationController
   # GET /missions.json
   def index
     @missions = Mission.all
+    @categories = Category.all
   end
 
   # GET /missions/1
@@ -15,16 +16,25 @@ class MissionsController < ApplicationController
   # GET /missions/new
   def new
     @mission = Mission.new
+    @levels = Level.all
+    @categories = Category.all
+    @categories.each do |category|
+      @mission.acquisitions.build(category_id: category.id, experience: 0)
+    end
   end
 
   # GET /missions/1/edit
   def edit
+    @levels = Level.all
+    @categories = Category.all
   end
 
   # POST /missions
   # POST /missions.json
   def create
     @mission = Mission.new(mission_params)
+
+    #render plain: params
 
     respond_to do |format|
       if @mission.save
@@ -35,6 +45,7 @@ class MissionsController < ApplicationController
         format.json { render json: @mission.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
   # PATCH/PUT /missions/1
@@ -65,10 +76,11 @@ class MissionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_mission
       @mission = Mission.find(params[:id])
+      @categories = Category.all
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def mission_params
-      params.require(:mission).permit(:description, :category_id, :level_id)
+      params.require(:mission).permit(:description, :category_id, :level_id, acquisitions_attributes: [:id, :category_id, :experience])
     end
 end
