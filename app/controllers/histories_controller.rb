@@ -38,6 +38,7 @@ class HistoriesController < ApplicationController
       status.save
     end
     @history.experience = user.reload.total_experience
+    user.reassign_missions
 
     respond_to do |format|
       if @history.save

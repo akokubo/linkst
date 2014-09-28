@@ -20,4 +20,16 @@ class User < ActiveRecord::Base
     average_experience = total_experience / 3
     Level.get_level_from_experience(average_experience)
   end
+
+  def reassign_missions
+    assigns = self.assigns
+    missions = Mission.all
+    missions_count = missions.count
+    random = Random.new
+    assigns.each do |assign|
+      index = random.rand(missions_count)
+      assign.mission_id = missions[index].id
+      assign.save
+    end
+  end
 end
