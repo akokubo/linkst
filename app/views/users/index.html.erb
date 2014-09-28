@@ -7,6 +7,7 @@
       <th><%= t('activerecord.attributes.user.number') %></th>
       <th><%= t('activerecord.attributes.user.role') %></th>
       <th><%= t('activerecord.attributes.user.name') %></th>
+      <th><%= t('activerecord.attributes.user.email') %></th>
       <th><%= t('activerecord.attributes.user.idm') %></th>
     </tr>
   </thead>
@@ -17,6 +18,7 @@
         <td><%= user.number %></td>
         <td><%= user.role.name %></td>
         <td><%= user.name %></td>
+        <td><%= user.email %></td>
         <td><%= user.idm %></td>
       </tr>
     <% end %>
