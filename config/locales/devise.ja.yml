@@ -52,4 +52,4 @@ ja:
       expired: は期限が切れたため、新しく取得する必要があります
       not_found: は見つかりませんでした
       not_locked: は凍結されていません
-      not_saved: '%{count}個のエラーにより%{resource}を保存することができませんでした。'
+      not_saved: '%{resource}に%{count}つのエラーが発生しました。'
