@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140926151604) do
+ActiveRecord::Schema.define(version: 20140928235009) do
 
   create_table "acquisitions", force: true do |t|
     t.integer  "mission_id"
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 20140926151604) do
   end
 
   create_table "missions", force: true do |t|
-    t.text     "description"
+    t.string   "description"
     t.integer  "category_id"
     t.integer  "level_id"
     t.datetime "created_at"
