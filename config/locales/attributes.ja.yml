@@ -26,7 +26,7 @@ ja:
         name: 'カテゴリー名'
       level:
         value: 'レベル'
-        sufficiency: '次のレベルまで'
+        sufficiency: '必要経験値'
       mission:
         description: '説明'
         category: 'カテゴリー'
