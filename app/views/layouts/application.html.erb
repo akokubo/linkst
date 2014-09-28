@@ -56,10 +56,16 @@
 
   <div class="container theme-showcase" role="main">
     <% if notice %>
-      <p class="alert alert-notice"><%= notice %></p>
+      <div class="alert alert-info alert-block">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        <%= notice %>
+      </div>
     <% end %>
     <% if alert %>
-      <p class="alert alert-error"><%= alert %></p>
+      <div class="alert alert-danger alert-block">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        <%= alert %>
+      </div>
     <% end %>
     <%= yield %>　　<!-- ※この行は各ページを表示するための、最初から存在する。 -->
   </div><!-- /.container -->
