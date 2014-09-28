@@ -22,6 +22,8 @@ ja:
         idm: 'IDm'
         role: 'ロール'
         role_id: 'ロールID'
+        total_experience: '総経験値'
+        average_level: '総合レベル'
       category:
         name: 'カテゴリー名'
       level:

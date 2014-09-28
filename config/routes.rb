@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   get '/users'  => 'users#index', as: :users
+  get '/users/:id'  => 'users#show', as: :user
 
   get '/about'   => 'welcome#about',   as: :about
   get '/contact' => 'welcome#contact', as: :contact

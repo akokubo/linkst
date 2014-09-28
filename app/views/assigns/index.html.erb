@@ -13,8 +13,8 @@
   <tbody>
     <% @assigns.each do |assign| %>
       <tr>
-        <td><%= assign.user %></td>
-        <td><%= assign.mission %></td>
+        <td><%= assign.user.name %></td>
+        <td><%= assign.mission.description %></td>
         <td><%= link_to t('Show'), assign %></td>
         <td><%= link_to t('Edit'), edit_assign_path(assign) %></td>
         <td><%= link_to t('Destroy'), assign, method: :delete, data: { confirm: t('Are you sure?') } %></td>

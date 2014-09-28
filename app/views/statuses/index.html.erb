@@ -14,8 +14,8 @@
   <tbody>
     <% @statuses.each do |status| %>
       <tr>
-        <td><%= status.user %></td>
-        <td><%= status.category %></td>
+        <td><%= status.user.name %></td>
+        <td><%= status.category.name %></td>
         <td><%= status.experience %></td>
         <td><%= link_to t('Show'), status %></td>
         <td><%= link_to t('Edit'), edit_status_path(status) %></td>

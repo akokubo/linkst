@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user.number') %>:</strong>
+  <%= @user.number %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user.role') %>:</strong>
+  <%= @user.role.name %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user.name') %>:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user.email') %>:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user.idm') %>:</strong>
+  <%= @user.idm %>
+</p>
+
+
+<p>
+  <strong><%= t('activerecord.models.status') %>:</strong>
+  Lv.<%= @user.average_level.value %> (<%= @user.total_experience %> / <%= @user.average_level.next.sufficiency * 3 %>)
+</p>
+<ul>
+	<% @categories.each do |category| %>
+	  <li>
+	    <strong><%= category.name %>:</strong>
+	    <% experience = @user.statuses.find_by(category_id: category.id).experience %>
+	    <% level = Level.get_level_from_experience(experience) %>
+	    Lv.<%= level.value %> (<%= experience %> / <%= level.next.sufficiency %>)
+	  </li>
+	<% end %>
+</ul>
+
+<p>
+  <strong><%= t('activerecord.models.assign') %>:</strong>
+</p>
+<ul>
+  <% @user.assigns.each do |assign| %>
+    <li><%= assign.mission.description %></li>
+  <% end %>
+</ul>
+
+<%= link_to t('Back'), users_path %>
