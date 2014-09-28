@@ -46,7 +46,19 @@
 </p>
 <ul>
   <% @user.assigns.each do |assign| %>
-    <li><%= assign.mission.description %></li>
+    <li>
+      <%= assign.mission.category.name %>
+      Lv.<%= assign.mission.level.value %>
+      <%= assign.mission.description %>
+<% history = History.new(user_id: @user.id, mission_id: assign.mission.id) %>
+<%= form_for(history, html: { style: "display: inline;" }) do |f| %>
+    <%= f.hidden_field :user_id %>
+    <%= f.hidden_field :mission_id %>
+    <%= f.submit value: '実行' %>
+<% end %>
+
+
+    </li>
   <% end %>
 </ul>
 
