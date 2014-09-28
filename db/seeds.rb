@@ -17,6 +17,8 @@ table_names.each do |table_name|
   if File.exist?(path)
     puts "Creating #{table_name}..."
 
+    # require path
+
     # WindowsのMicrosoft Excelの出力したCSVファイルを想定
     CSV.foreach(path, { encoding: "cp932:utf-8", row_sep: "\r\n", headers: true }) do |row|
       (table_name.classify.constantize).new(row.to_hash).save
