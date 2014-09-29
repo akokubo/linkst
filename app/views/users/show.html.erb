@@ -1,0 +1,66 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user.number') %>:</strong>
+  <%= @user.number %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user.role') %>:</strong>
+  <%= @user.role.name %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user.name') %>:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user.email') %>:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user.idm') %>:</strong>
+  <%= @user.idm %>
+</p>
+
+
+<p>
+  <strong><%= t('activerecord.models.status') %>:</strong>
+  Lv.<%= @user.average_level.value %> (<%= @user.total_experience %> / <%= @user.average_level.next.sufficiency * 3 %>)
+</p>
+<ul>
+	<% @categories.each do |category| %>
+	  <li>
+	    <strong><%= category.name %>:</strong>
+	    <% experience = @user.statuses.find_by(category_id: category.id).experience %>
+	    <% level = Level.get_level_from_experience(experience) %>
+	    Lv.<%= level.value %> (<%= experience %> / <%= level.next.sufficiency %>)
+	  </li>
+	<% end %>
+</ul>
+
+<p>
+  <strong><%= t('activerecord.models.assign') %>:</strong>
+</p>
+<ul>
+  <% @user.assigns.each do |assign| %>
+    <li>
+      <%= assign.mission.category.name %>
+      Lv.<%= assign.mission.level.value %>
+      <%= assign.mission.description %>
+<% history = History.new(user_id: @user.id, mission_id: assign.mission.id) %>
+<%= form_for(history, html: { style: "display: inline;" }) do |f| %>
+    <%= f.hidden_field :user_id %>
+    <%= f.hidden_field :mission_id %>
+    <%= f.submit value: '実行' %>
+<% end %>
+
+
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to t('Settings'), edit_user_registration_path %> | 
+<%= link_to t('Back'), users_path %>

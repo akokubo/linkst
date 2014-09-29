@@ -22,6 +22,8 @@ ja:
         idm: 'IDm'
         role: 'ロール'
         role_id: 'ロールID'
+        total_experience: '総経験値'
+        average_level: '総合レベル'
       category:
         name: 'カテゴリー名'
       level:
@@ -52,6 +54,9 @@ ja:
         user_id: 'ユーザーID'
         mission: 'ミッション'
         mission_id: 'ミッションID'
+        created_at: '日時'
+        recent_experience: '元のレベル'
+        experience: '現在のレベル'
       assign:
         user: 'ユーザー'
         user_id: 'ユーザーID'

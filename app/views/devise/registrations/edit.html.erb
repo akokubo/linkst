@@ -5,19 +5,20 @@
   <%= devise_error_messages! %>
 
   <div><%= f.label :number %><br />
-  <%= f.text_field :number, autofocus: true %></div>
+  <%= f.text_field :number, readonly: true %></div>
 
+  <% roles = Role.all %>
   <div><%= f.label :role_id %><br />
-  <%= f.text_field :role_id %></div>
+  <%= f.collection_select :role_id, roles, :id, :name, {}, { disabled: true } %></div>
 
   <div><%= f.label :name %><br />
-  <%= f.text_field :name %></div>
+  <%= f.text_field :name, readonly: true %></div>
 
   <div><%= f.label :email %><br />
   <%= f.email_field :email %></div>
 
   <div><%= f.label :idm %><br />
-  <%= f.text_field :idm %></div>
+  <%= f.text_field :idm, readonly: true %></div>
 
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -25,7 +26,7 @@
   <% end %>
 
   <div><%= f.label :password %> <i>(<%= t("leave blank if you don't want to change it") %>)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %></div>
+    <%= f.password_field :password, autocomplete: "off", autofocus: true %></div>
 
   <div><%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %></div>

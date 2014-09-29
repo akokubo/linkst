@@ -45,6 +45,8 @@ ActiveRecord::Schema.define(version: 20140928235009) do
     t.integer  "mission_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "recent_experience"
+    t.integer  "experience"
   end
 
   add_index "histories", ["mission_id"], name: "index_histories_on_mission_id"
@@ -105,6 +107,7 @@ ActiveRecord::Schema.define(version: 20140928235009) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["idm"], name: "index_users_on_idm", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   add_index "users", ["role_id"], name: "index_users_on_role_id"
 
