@@ -42,7 +42,7 @@ class HistoriesController < ApplicationController
 
     respond_to do |format|
       if @history.save
-        format.html { redirect_to @history, notice: 'History was successfully created.' }
+        format.html { redirect_to user_path(idm: user.idm), notice: 'History was successfully created.' }
         format.json { render :show, status: :created, location: @history }
       else
         format.html { render :new }
