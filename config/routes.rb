@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :seminars
+
   resources :assigns
 
   resources :histories

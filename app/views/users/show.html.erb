@@ -11,6 +11,12 @@
 </p>
 
 <p>
+  <strong><%= t('activerecord.attributes.user.seminar') %>:</strong>
+  <% if @user.seminar %><%= @user.seminar.name %><% end %>
+</p>
+
+
+<p>
   <strong><%= t('activerecord.attributes.user.name') %>:</strong>
   <%= @user.name %>
 </p>

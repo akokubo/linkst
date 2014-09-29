@@ -10,6 +10,7 @@ ja:
       status: 'ステータス'
       history: 'ミッションの履歴'
       assign: '現在のミッション'
+      seminar: 'ゼミ'
     attributes:
       user:
         name: '名前'
@@ -22,6 +23,8 @@ ja:
         idm: 'IDm'
         role: 'ロール'
         role_id: 'ロールID'
+        seminar: 'ゼミ'
+        seminar_id: 'ゼミID'
         total_experience: '総経験値'
         average_level: '総合レベル'
       category:
@@ -62,6 +65,8 @@ ja:
         user_id: 'ユーザーID'
         mission: 'ミッション'
         mission_id: 'ミッションID'
+      seminar:
+        name: 'ゼミ名'
     successful:
       messages:
         created: "%{model}を保存しました。"

@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.seminar.name') %>:</strong>
+  <%= @seminar.name %>
+</p>
+
+<%= link_to t('Edit'), edit_seminar_path(@seminar) %> |
+<%= link_to t('Back'), seminars_path %>

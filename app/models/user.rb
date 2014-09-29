@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :statuses
   has_many :histories
   has_many :assigns
+  belongs_to :seminar
 
   def total_experience
     experience = 0
