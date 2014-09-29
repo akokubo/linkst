@@ -9,7 +9,7 @@
 require 'csv'
 
 # seedを投入するCSVファイルのリスト
-csv_names = %w(roles levels categories missions acquisitions seminars)
+csv_names = %w(roles levels categories seminars missions acquisitions users)
 
 csv_names.each do |csv_name|
   path = Rails.root.join("db/seeds", Rails.env, csv_name + ".csv")
@@ -27,7 +27,7 @@ csv_names.each do |csv_name|
 end
 
 # seedを投入するプログラムファイルのリスト
-program_names = %w(users)
+program_names = %w()
 program_names.each do |program_name|
   path = Rails.root.join("db/seeds", Rails.env, program_name + ".rb")
 

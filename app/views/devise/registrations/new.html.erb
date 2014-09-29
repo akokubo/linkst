@@ -1,7 +1,6 @@
-<% provide :title, t("Sign up") %>
-<h2><%= yield(:title) %></h2>
+<h2><%= t('.sign_up', :default => "Sign up") %></h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
   <div><%= f.label :number %><br />
@@ -9,6 +8,9 @@
 
   <div><%= f.label :role_id %><br />
   <%= f.text_field :role_id %></div>
+
+  <div><%= f.label :seminar_id %><br />
+  <%= f.text_field :seminar_id %></div>
 
   <div><%= f.label :name %><br />
   <%= f.text_field :name %></div>
@@ -20,12 +22,12 @@
   <%= f.text_field :idm %></div>
 
   <div><%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %></div>
+  <%= f.password_field :password %></div>
 
   <div><%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
+  <%= f.password_field :password_confirmation %></div>
 
-  <div><%= f.submit t("Sign up") %></div>
+  <div><%= f.submit t('.sign_up', :default => "Sign up") %></div>
 <% end %>
 
 <%= render "devise/shared/links" %>

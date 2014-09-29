@@ -11,7 +11,9 @@ module DeviseHelper
     <div class="alert alert-danger alert-block">
       <button type="button" class="close" data-dismiss="alert">x</button>
       <h4>#{sentence}</h4>
+      <ul>
       #{messages}
+      </ul>
     </div>
     HTML
 
