@@ -8,20 +8,32 @@
 
 require 'csv'
 
-# seedを投入するテーブルのリスト
-table_names = %w(roles levels categories missions acquisitions)
+# seedを投入するCSVファイルのリスト
+csv_names = %w(roles levels categories missions acquisitions seminars)
 
-table_names.each do |table_name|
-  path = Rails.root.join("db/seeds", Rails.env, table_name + ".csv")
+csv_names.each do |csv_name|
+  path = Rails.root.join("db/seeds", Rails.env, csv_name + ".csv")
 
   if File.exist?(path)
-    puts "Creating #{table_name}..."
+    puts "Creating #{csv_name}..."
 
     # require path
 
     # WindowsのMicrosoft Excelの出力したCSVファイルを想定
     CSV.foreach(path, { encoding: "cp932:utf-8", row_sep: "\r\n", headers: true }) do |row|
-      (table_name.classify.constantize).new(row.to_hash).save
+      (csv_name.classify.constantize).new(row.to_hash).save
     end
+  end
+end
+
+# seedを投入するプログラムファイルのリスト
+program_names = %w(users)
+program_names.each do |program_name|
+  path = Rails.root.join("db/seeds", Rails.env, program_name + ".rb")
+
+  if File.exist?(path)
+    puts "Creating #{program_name}..."
+
+    require path
   end
 end
