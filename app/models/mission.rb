@@ -7,18 +7,14 @@ class Mission < ActiveRecord::Base
 
   accepts_nested_attributes_for :acquisitions
 
-=begin
-  after_initialize :add_acquisitions
+#  after_create :add_acquisitions
 
   private
 
     def add_acquisitions
-      if new_record?
-        categories = Category.all
-        categories.each do |category|
-          self.acquisitions.build(category_id: category.id, experience: 0)
-        end
+      categories = Category.all
+      categories.each do |category|
+        self.acquisitions.build(category_id: category.id, experience: 0)
       end
     end
-=end
 end
