@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>学生生活『見える化プロジェクト』</title>
+  <title>学生生活『見える化』プロジェクト</title>
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -67,7 +67,17 @@
       </div>
     <% end %>
     <%= yield %>　　<!-- ※この行は各ページを表示するための、最初から存在する。 -->
+    <%= debug([params, request.ip, request.remote_ip]) if Rails.env.development? %>
   </div><!-- /.container -->
-
+  <footer class="footer">
+    <small>
+    </small>
+    <nav>
+      <ul>
+        <li><%= link_to "About",   about_path %></li>
+        <li><%= link_to "Contact", contact_path %></li>
+      </ul>
+    </nav>
+  </footer>
 </body>
 </html>
