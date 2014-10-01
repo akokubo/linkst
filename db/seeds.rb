@@ -8,10 +8,7 @@
 
 require 'csv'
 
-# seedを投入するCSVファイルのリスト
-csv_names = %w(roles levels categories seminars missions acquisitions users)
-
-csv_names.each do |csv_name|
+def csv_import(csv_name)
   path = Rails.root.join("db/seeds", Rails.env, csv_name + ".csv")
 
   if File.exist?(path)
@@ -26,9 +23,7 @@ csv_names.each do |csv_name|
   end
 end
 
-# seedを投入するプログラムファイルのリスト
-program_names = %w()
-program_names.each do |program_name|
+def program_import(program_name)
   path = Rails.root.join("db/seeds", Rails.env, program_name + ".rb")
 
   if File.exist?(path)
@@ -37,3 +32,10 @@ program_names.each do |program_name|
     require path
   end
 end
+
+csv_import('roles')
+csv_import('levels')
+csv_import('categories')
+csv_import('seminars')
+program_import('missions')
+csv_import('users')
