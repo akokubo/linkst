@@ -45,7 +45,8 @@ ja:
         category_id: 'カテゴリーID'
         experience: '経験値'
       role:
-        name: 'ロール名'
+        name: 'ロール名(英語)'
+        japanese_name: 'ロール名(日本語)'
       status:
         user: 'ユーザー'
         user_id: 'ユーザーID'

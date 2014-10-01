@@ -5,5 +5,10 @@
   <%= @role.name %>
 </p>
 
+<p>
+  <strong><%= t('activerecord.attributes.role.japanese_name') %>:</strong>
+  <%= @role.japanese_name %>
+</p>
+
 <%= link_to t('Edit'), edit_role_path(@role) %> |
 <%= link_to t('Back'), roles_path %>

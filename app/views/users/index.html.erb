@@ -19,7 +19,7 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= user.number %></td>
-        <td><%= user.role.name %></td>
+        <td><%= user.role.japanese_name %></td>
         <td><% if user.seminar %><%= user.seminar.name %><% end %></td>
         <td><%= user.name %></td>
         <td><%= user.email %></td>
