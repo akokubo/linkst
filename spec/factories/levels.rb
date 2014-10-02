@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :level do
     value 1
-    sufficiency 1
+    required_experience 1
   end
 end

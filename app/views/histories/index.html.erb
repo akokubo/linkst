@@ -13,6 +13,7 @@
     </tr>
   </thead>
 
+  <% count = Category.all.count %>
   <tbody>
     <% @histories.each do |history| %>
       <tr>
@@ -23,7 +24,7 @@
         <td><%= history.mission.description %></td>
         </td>
         <td><%= history.recent_experience %> → <%= history.experience %></td>
-        <td><%= Level.get_level_from_experience(history.recent_experience).value %> → <%= Level.get_level_from_experience(history.experience).value %></td>
+        <td><%= Level.get_level_from_experience(history.recent_experience / count).value %> → <%= Level.get_level_from_experience(history.experience / count).value %></td>
         <td><%= link_to t('Show'), history %></td>
         <td><%= link_to t('Edit'), edit_history_path(history) %></td>
         <td><%= link_to t('Destroy'), history, method: :delete, data: { confirm: t('Are you sure?') } %></td>

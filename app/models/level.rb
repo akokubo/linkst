@@ -2,12 +2,12 @@ class Level < ActiveRecord::Base
   has_many :missions
 
   def self.get_level_from_experience(experience)
-    Level.where("sufficiency <= ?", experience)
-      .order('sufficiency DESC').first
+    Level.where("required_experience <= ?", experience)
+      .order('required_experience DESC').first
   end
 
   def next
-    Level.where("sufficiency > ?", self.sufficiency)
-      .order('sufficiency ASC').first
+    Level.where("required_experience > ?", self.required_experience)
+      .order('required_experience ASC').first
   end
 end

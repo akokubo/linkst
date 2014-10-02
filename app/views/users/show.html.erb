@@ -34,7 +34,7 @@
 
 <p>
   <strong><%= t('activerecord.models.status') %>:</strong>
-  Lv.<%= @user.average_level.value %> (<%= @user.total_experience %> / <%= @user.average_level.next.sufficiency * 3 %>)
+  Lv.<%= @user.average_level.value %> (<%= @user.total_experience %> / <%= @user.average_level.next.required_experience * @categories.count %>)
 </p>
 <ul>
 	<% @categories.each do |category| %>
@@ -42,7 +42,7 @@
 	    <strong><%= category.name %>:</strong>
 	    <% experience = @user.statuses.find_by(category_id: category.id).experience %>
 	    <% level = Level.get_level_from_experience(experience) %>
-	    Lv.<%= level.value %> (<%= experience %> / <%= level.next.sufficiency %>)
+	    Lv.<%= level.value %> (<%= experience %> / <%= level.next.required_experience %>)
 	  </li>
 	<% end %>
 </ul>
@@ -56,14 +56,12 @@
       <%= assign.mission.category.name %>
       Lv.<%= assign.mission.level.value %>
       <%= assign.mission.description %>
-<% history = History.new(user_id: @user.id, mission_id: assign.mission.id) %>
-<%= form_for(history, html: { style: "display: inline;" }) do |f| %>
-    <%= f.hidden_field :user_id %>
-    <%= f.hidden_field :mission_id %>
-    <%= f.submit value: '実行' %>
-<% end %>
-
-
+      <% history = History.new(user_id: @user.id, mission_id: assign.mission.id) %>
+      <%= form_for(history, html: { style: "display: inline;" }) do |f| %>
+          <%= f.hidden_field :user_id %>
+          <%= f.hidden_field :mission_id %>
+          <%= f.submit value: '実行' %>
+      <% end %>
     </li>
   <% end %>
 </ul>

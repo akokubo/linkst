@@ -1,1 +1,1 @@
-json.extract! @level, :id, :value, :sufficiency, :created_at, :updated_at
+json.extract! @level, :id, :value, :required_experience, :created_at, :updated_at

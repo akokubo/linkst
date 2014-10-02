@@ -20,7 +20,8 @@ class User < ActiveRecord::Base
   end
 
   def average_level
-    average_experience = total_experience / 3
+    categories = Category.all
+    average_experience = total_experience / categories.count
     Level.get_level_from_experience(average_experience)
   end
 
@@ -68,8 +69,8 @@ class User < ActiveRecord::Base
   private
 
     def add_statuses_and_assigns
-      level_sufficiency_minimum = Level.minimum(:sufficiency)
-      level = Level.find_by(sufficiency: level_sufficiency_minimum)
+      level_required_experience_minimum = Level.minimum(:required_experience)
+      level = Level.find_by(required_experience: level_required_experience_minimum)
 
       categories = Category.all
 
