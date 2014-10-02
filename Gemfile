@@ -71,3 +71,4 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'devise'
 gem 'will_paginate'
 gem 'bootstrap-sass'
+gem 'grape'
