@@ -5,7 +5,8 @@ module Aoca
 
     helpers do
       def authenticate!
-        error!('401 Unauthorized', 401) unless request.ip == '127.0.0.1'
+        true
+        # error!('401 Unauthorized', 401) unless request.ip == '127.0.0.1'
       end
     end
 
