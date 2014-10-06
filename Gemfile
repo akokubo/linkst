@@ -14,7 +14,6 @@ group :test, :development do
   # create UML
   gem 'railroady'
 
-  gem 'faker'
 end
 
 
@@ -72,3 +71,4 @@ gem 'devise'
 gem 'will_paginate'
 gem 'bootstrap-sass'
 gem 'grape'
+gem 'faker'
