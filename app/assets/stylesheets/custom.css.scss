@@ -1,5 +1,3 @@
-@import "bootstrap";
-
 body { padding-top: 60px; }
 footer { margin-top: 100px; }
 table, td, th { vertical-align: middle; border: none; }
@@ -54,6 +52,7 @@ table {
 $grayMediumLight: #eaeaea;
 $grayLight: #463;
 $grayDarker: #222;
+$gray: #555;
 
 @mixin box_sizing {
   -moz-box-sizing: border-box;
