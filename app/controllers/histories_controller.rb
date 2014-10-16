@@ -30,31 +30,33 @@ class HistoriesController < ApplicationController
 
     user_id = histories_params[:user_id].to_i
     user = User.find(user_id)
-    if current_user.id == user_id
+    if current_user.id == user_id || current_user.has_role?('administrator')
       mission_ids = histories_params[:mission_ids]
       histories = []
-      mission_ids.each do |mission_id|
-        if user.assigns.find_by(mission_id: mission_id)
-          history = History.new(user_id: user_id, mission_id: mission_id)
-          mission = Mission.find(mission_id)
-          history.recent_experience = user.total_experience
-          mission.acquisitions.each do |acquisition|
-            category_id = acquisition.category_id
-            status = user.statuses.find_by(category_id: category_id)
-            status.experience += acquisition.experience
-            status.save
+      if mission_ids
+        mission_ids.each do |mission_id|
+          if user.assigns.find_by(mission_id: mission_id)
+            history = History.new(user_id: user_id, mission_id: mission_id)
+            mission = Mission.find(mission_id)
+            history.recent_experience = user.total_experience
+            mission.acquisitions.each do |acquisition|
+              category_id = acquisition.category_id
+              status = user.statuses.find_by(category_id: category_id)
+              status.experience += acquisition.experience
+              status.save
+            end
+            history.experience = user.reload.total_experience
+            histories << history
           end
-          history.experience = user.reload.total_experience
-          histories << history
         end
-      end
 
-      if histories.count > 0
-        History.transaction do
-          histories.each do |history|
-            history.save
+        if histories.count > 0
+          History.transaction do
+            histories.each do |history|
+              history.save
+            end
+            user.reassign_missions
           end
-          user.reassign_missions
         end
       end
     end
