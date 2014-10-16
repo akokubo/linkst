@@ -25,7 +25,7 @@
         <td><%= user.email %></td>
         <td><%= user.total_experience %></td>
         <td><%= user.average_level.value %></td>
-        <td><%= link_to t('Show'), user_path(idm: user.idm) %></td>
+        <td><%= link_to t('Show'), user_path(fpno: user.fpno) %></td>
       </tr>
     <% end %>
   </tbody>

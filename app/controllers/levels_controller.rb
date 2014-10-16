@@ -1,5 +1,6 @@
 class LevelsController < ApplicationController
   before_action :set_level, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /levels
   # GET /levels.json
@@ -28,7 +29,7 @@ class LevelsController < ApplicationController
 
     respond_to do |format|
       if @level.save
-        format.html { redirect_to @level, notice: 'Level was successfully created.' }
+        format.html { redirect_to @level, notice: t('activerecord.successful.messages.created', :model => Level.model_name.human) }
         format.json { render :show, status: :created, location: @level }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class LevelsController < ApplicationController
   def update
     respond_to do |format|
       if @level.update(level_params)
-        format.html { redirect_to @level, notice: 'Level was successfully updated.' }
+        format.html { redirect_to @level, notice: t('activerecord.successful.messages.updated', :model => Level.model_name.human) }
         format.json { render :show, status: :ok, location: @level }
       else
         format.html { render :edit }
@@ -56,7 +57,7 @@ class LevelsController < ApplicationController
   def destroy
     @level.destroy
     respond_to do |format|
-      format.html { redirect_to levels_url, notice: 'Level was successfully destroyed.' }
+      format.html { redirect_to levels_url, notice: t('activerecord.successful.messages.destroyed', :model => Level.model_name.human) }
       format.json { head :no_content }
     end
   end
