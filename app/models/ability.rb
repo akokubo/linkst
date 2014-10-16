@@ -40,6 +40,7 @@ class Ability
       can :access, :rails_admin
       can :dashboard
       can :manage, [] # teacherが管理できるモデル
+      can :create, [History], user_id: user.id
     else
       can :read, [Category, Level, Seminar] # 全ユーザーが読み出せるモデル
       can :read, [Acquisition, Assign, History, Status], user_id: user.id

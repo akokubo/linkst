@@ -48,22 +48,27 @@
 <p>
   <strong><%= t('activerecord.models.assign') %>:</strong>
 </p>
-<ul>
-  <% @user.assigns.each do |assign| %>
-    <li>
-      <%= assign.mission.category.name %>
-      Lv.<%= assign.mission.level.value %>
-      <%= assign.mission.description %>
-      <% history = History.new(user_id: @user.id, mission_id: assign.mission.id) %>
-      <%= form_for(history, html: { style: "display: inline;" }) do |f| %>
-          <%= f.hidden_field :user_id %>
-          <%= f.hidden_field :mission_id %>
-          <%= f.submit value: '実行' %>
+<% if current_user.has_role?("administrator") %>
+  <%= form_tag({controller: :histories, action: :create}, {method: :post}) do %>
+    <fieldset>
+      <%= hidden_field_tag "histories[user_id]", @user.id %>
+      <% assigns = @user.assigns %>
+      <% assigns.each do |assign| %>
+      <% mission = assign.mission %>
+        <%= check_box_tag :history, value = assign.mission.id, checked = false, {name: "histories[mission_ids][]", id: "mission_#{mission.id}"} %>
+        <%= label "mission", mission.id, "#{mission.category.name} Lv.#{mission.level.value}: #{mission.description}" %><br>
       <% end %>
-    </li>
+      <%= submit_tag "ミッションの達成" %>
+    </fieldset>
   <% end %>
-</ul>
-
+<% else %>
+  <ul>
+  <% @user.assigns.each do |assign| %>
+    <% mission = assign.mission %>
+    <li><strong><%= "#{mission.category.name} Lv.#{mission.level.value}" %></strong>: <%= "#{mission.description}" %></li>
+  <% end %>
+  </ul>
+<% end %>
 
 <%= link_to t('devise.passwords.edit.change_your_password', :default => 'Change your password'), edit_user_registration_path %><br />
 <%= link_to t('Back'), users_path %>

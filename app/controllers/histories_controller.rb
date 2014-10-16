@@ -27,8 +27,40 @@ class HistoriesController < ApplicationController
   # POST /histories
   # POST /histories.json
   def create
-    @history = History.new(history_params)
 
+    user_id = histories_params[:user_id].to_i
+    user = User.find(user_id)
+    if current_user.id == user_id
+      mission_ids = histories_params[:mission_ids]
+      histories = []
+      mission_ids.each do |mission_id|
+        if user.assigns.find_by(mission_id: mission_id)
+          history = History.new(user_id: user_id, mission_id: mission_id)
+          mission = Mission.find(mission_id)
+          history.recent_experience = user.total_experience
+          mission.acquisitions.each do |acquisition|
+            category_id = acquisition.category_id
+            status = user.statuses.find_by(category_id: category_id)
+            status.experience += acquisition.experience
+            status.save
+          end
+          history.experience = user.reload.total_experience
+          histories << history
+        end
+      end
+
+      if histories.count > 0
+        History.transaction do
+          histories.each do |history|
+            history.save
+          end
+          user.reassign_missions
+        end
+      end
+    end
+    redirect_to user_path(fpno: user.fpno)
+
+=begin
     mission = @history.mission
     user = @history.user
     @history.recent_experience = user.total_experience
@@ -39,6 +71,7 @@ class HistoriesController < ApplicationController
       status.save
     end
     @history.experience = user.reload.total_experience
+
     user.reassign_missions
 
     respond_to do |format|
@@ -50,6 +83,7 @@ class HistoriesController < ApplicationController
         format.json { render json: @history.errors, status: :unprocessable_entity }
       end
     end
+=end
   end
 
   # PATCH/PUT /histories/1
@@ -83,7 +117,14 @@ class HistoriesController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
+=begin
     def history_params
       params.require(:history).permit(:user_id, :mission_id)
+    end
+=end
+
+    def histories_params
+      params.require(:histories).permit(:user_id, mission_ids: [])
+#      params.require(:history).permit(:user_id, mission_id: [])
     end
 end

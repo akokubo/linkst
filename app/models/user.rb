@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :fpno, presence: true, uniqueness: true
 
+  before_save :upcase_fpno
   after_create :add_statuses_and_assigns
 
   def total_experience
@@ -90,6 +91,9 @@ class User < ActiveRecord::Base
         first_mission = Mission.find_by(category_id: category.id, level_id: level.id)
         self.assigns.create(mission_id: first_mission.id)
       end
+    end
 
+    def upcase_fpno
+      self.fpno = self.fpno.upcase
     end
 end

@@ -20,7 +20,7 @@ ja:
         remember_me: 'パスワードを記憶'
         current_password: '現在のパスワード'
         number: '学籍番号'
-        fpno: 'FeliCa Pocket Number'
+        fpno: 'FeliCaポケットナンバー'
         role: 'ロール'
         role_id: 'ロールID'
         seminar: 'ゼミ'
