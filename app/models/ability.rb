@@ -43,7 +43,7 @@ class Ability
     else
       can :read, [Category, Level, Seminar] # 全ユーザーが読み出せるモデル
       can :read, [Acquisition, Assign, History, Status], user_id: user.id
-      can :read, User, id: user.id
+      can :show, User, id: user.id
       can :create, [History], user_id: user.id
     end
   end

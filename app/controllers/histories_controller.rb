@@ -43,7 +43,7 @@ class HistoriesController < ApplicationController
 
     respond_to do |format|
       if @history.save
-        format.html { redirect_to user_path(idm: user.idm), notice: t('activerecord.successful.messages.created', :model => History.model_name.human) }
+        format.html { redirect_to user_path(fpno: user.fpno), notice: t('activerecord.successful.messages.created', :model => History.model_name.human) }
         format.json { render :show, status: :created, location: @history }
       else
         format.html { render :new }

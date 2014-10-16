@@ -1,5 +1,6 @@
 class AcquisitionsController < ApplicationController
   before_action :set_acquisition, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /acquisitions
   # GET /acquisitions.json

@@ -1,1 +1,8 @@
-<%= link_to t("Sign up"), new_user_registration_path %>
+<h1><%= t('Welcome') %>!</h1>
+
+<% if user_signed_in? %>
+<p><%= link_to t("My Information"), user_path(fpno: current_user.fpno) %></p>
+<p><%= link_to t("Sign out"), destroy_user_session_path, method: :delete %></p>
+<% else %>
+<p><%= link_to t("Sign in"), new_user_session_path %></p>
+<% end %>

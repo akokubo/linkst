@@ -14,6 +14,6 @@ class UsersController < ApplicationController
 
     def set_user
       @categories = Category.all
-      @user = User.find_by(idm: params[:idm])
+      @user = User.find_by(fpno: params[:fpno])
     end
 end

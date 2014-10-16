@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   validates :number, presence: true
   validates :role_id, presence: true
   validates :name, presence: true
-  validates :idm, presence: true, uniqueness: true
+  validates :fpno, presence: true, uniqueness: true
 
   after_create :add_statuses_and_assigns
 

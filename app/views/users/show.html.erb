@@ -25,8 +25,8 @@
 </p>
 
 <p>
-  <strong><%= t('activerecord.attributes.user.idm') %>:</strong>
-  <%= @user.idm %>
+  <strong><%= t('activerecord.attributes.user.fpno') %>:</strong>
+  <%= @user.fpno %>
 </p>
 
 
@@ -64,5 +64,6 @@
   <% end %>
 </ul>
 
-<%= link_to t('Settings'), edit_user_registration_path %> | 
+
+<%= link_to t('devise.passwords.edit.change_your_password', :default => 'Change your password'), edit_user_registration_path %><br />
 <%= link_to t('Back'), users_path %>

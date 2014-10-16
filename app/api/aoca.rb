@@ -28,18 +28,18 @@ module Aoca
 
       desc "Return a status."
       params do
-        requires :idm, type: String, desc: "Your idm."
+        requires :fpno, type: String, desc: "Your fpno."
       end
-      route_param :idm do
+      route_param :fpno do
         get do
-          user = User.find_by(idm: params[:idm])
+          user = User.find_by(fpno: params[:fpno])
           categories = Category.all
           hash = {
             number: user.number,
             role: user.role.japanese_name,
             name: user.name,
             email: user.email,
-            idm: user.idm,
+            fpno: user.fpno,
             average_level: user.average_level.value,
             total_experience: user.total_experience,
             next_average_level_required_experience: user.average_level.next.required_experience,
@@ -92,12 +92,12 @@ module Aoca
 
       desc "Create a history."
       params do
-        requires :idm, type: String, desc: "Your idm."
+        requires :fpno, type: String, desc: "Your fpno."
         requires :mission_id, type: Integer, desc: "Mission id."
       end
       post do
         authenticate!
-        user = User.find_by(idm: params[:idm])
+        user = User.find_by(fpno: params[:fpno])
 
         if user
           history = History.new({user_id: user.id, mission_id: params[:mission_id]})
@@ -118,11 +118,11 @@ module Aoca
 
       desc "Return histories."
       params do
-        requires :idm, type: String, desc: "Your idm."
+        requires :fpno, type: String, desc: "Your fpno."
       end
-      route_param :idm do
+      route_param :fpno do
         get do
-          user = User.find_by(idm: params[:idm])
+          user = User.find_by(fpno: params[:fpno])
           histories = user.histories
           hashes = []
           histories.each do |history|

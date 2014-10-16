@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 describe User do
-  it "is valid with a name, number, idm, email, password and password_confirmation" do
+  it "is valid with a name, number, fpno, email, password and password_confirmation" do
     user = User.new(
       name: 'Test User',
       number: '0000000',
-      idm: '0123456789012345',
+      fpno: '01234567',
       email: 'user@example.com',
       password: 'password',
       password_confirmation: 'password')
