@@ -13,17 +13,20 @@ module Aoca
     resource :users do
       desc "Users ranking."
       get '/' do
-        users = User.limit(10).order('created_at DESC')
-        hashes = []
-        users.each do |user|
+        statuses = Status.group(:user_id)
+          .select('user_id, SUM(experience) AS total_experience')
+          .order('total_experience DESC').limit(10)
+        ranking = []
+        statuses.each do |status|
+          user = User.find(status.user_id)
           hash = {
             name: user.name,
             total_experience: user.total_experience,
-            average_level: user.average_level.value
+            average_level: user.average_level.value            
           }
-          hashes << hash
+          ranking << hash
         end
-        hashes
+        ranking
       end
 
       desc "Return a status."
@@ -76,7 +79,7 @@ module Aoca
     resource :histories do
       desc "Return a public timeline."
       get '/' do
-        histories = History.limit(10).order('created_at DESC')
+        histories = History.order('created_at DESC').limit(10)
         hashes = []
         histories.each do |history|
           hashes << {
