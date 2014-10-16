@@ -1,0 +1,28 @@
+<% provide :title,  t("Listing ", model: t('activerecord.models.level').pluralize(:locale)) %>
+<h1><%= yield(:title) %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= t('activerecord.attributes.level.value') %></th>
+      <th><%= t('activerecord.attributes.level.required_experience') %></th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @levels.each do |level| %>
+      <tr>
+        <td><%= level.value %></td>
+        <td><%= level.required_experience %></td>
+        <td><%= link_to t('Show'), level %></td>
+        <td><%= link_to t('Edit'), edit_level_path(level) %></td>
+        <td><%= link_to t('Destroy'), level, method: :delete, data: { confirm: t('Are you sure?') } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to  t('New ', model: t('activerecord.models.level')), new_level_path %>

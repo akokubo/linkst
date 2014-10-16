@@ -1,0 +1,40 @@
+<%= form_for(@mission) do |f| %>
+  <% if @mission.errors.any? %>
+    <div id="error_explanation">
+      <h2><%=t "activerecord.errors.template.header.other", :model => Mission.model_name.human, :count => @mission.errors.count %>:</h2>
+
+      <ul>
+      <% @mission.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :category_id %><br>
+    <%= f.collection_select :category_id, @categories, :id, :name %>
+  </div>
+  <div class="field">
+    <%= f.label :level_id %><br>
+    <%= f.collection_select :level_id, @levels, :id, :value %>
+  </div>
+  <% @mission.acquisitions.each do |acquisition| %>
+    <%= f.fields_for :acquisitions, acquisition do |a| %>
+      <div class="field">
+      <%= a.label :experience, acquisition.category.name %><br>
+      <%= a.number_field :experience %>
+      <%= a.hidden_field :category_id %>
+      <% if acquisition.id %><%= a.hidden_field :id %><% end %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

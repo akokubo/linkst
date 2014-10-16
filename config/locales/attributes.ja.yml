@@ -1,0 +1,83 @@
+ja:
+  activerecord:
+    models:
+      user: 'ユーザー'
+      category: 'カテゴリー'
+      level: 'レベル'
+      mission: 'ミッション'
+      acquisition: '獲得経験値'
+      role: 'ロール'
+      status: 'ステータス'
+      history: 'ミッションの履歴'
+      assign: '現在のミッション'
+      seminar: 'ゼミ'
+    attributes:
+      user:
+        name: '名前'
+        email: 'メールアドレス'
+        password: 'パスワード'
+        password_confirmation: 'パスワード(確認)'
+        remember_me: 'パスワードを記憶'
+        current_password: '現在のパスワード'
+        number: '学籍番号'
+        fpno: 'FeliCaポケットナンバー'
+        role: 'ロール'
+        role_id: 'ロールID'
+        seminar: 'ゼミ'
+        seminar_id: 'ゼミID'
+        total_experience: '総経験値'
+        average_level: '総合レベル'
+      category:
+        name: 'カテゴリー名'
+      level:
+        value: 'レベル'
+        required_experience: '必要経験値'
+      mission:
+        description: '説明'
+        category: 'カテゴリー'
+        category_id: 'カテゴリーID'
+        level: 'レベル'
+        level_id: 'レベルID'
+      acquisition:
+        mission: 'ミッション'
+        mission_id: 'ミッションID'
+        category: 'カテゴリー'
+        category_id: 'カテゴリーID'
+        experience: '経験値'
+      role:
+        name: 'ロール名(英語)'
+        japanese_name: 'ロール名(日本語)'
+      status:
+        user: 'ユーザー'
+        user_id: 'ユーザーID'
+        category: 'カテゴリー'
+        category_id: 'カテゴリーID'
+        experience: '経験値'
+      history:
+        user: 'ユーザー'
+        user_id: 'ユーザーID'
+        mission: 'ミッション'
+        mission_id: 'ミッションID'
+        created_at: '日時'
+        recent_experience: '元のレベル'
+        experience: '現在のレベル'
+      assign:
+        user: 'ユーザー'
+        user_id: 'ユーザーID'
+        mission: 'ミッション'
+        mission_id: 'ミッションID'
+      seminar:
+        name: 'ゼミ名'
+    successful:
+      messages:
+        created: "%{model}を保存しました。"
+        updated: "%{model}を更新しました。"
+        destroyed: "%{model}を削除しました。"
+    errors:
+      template:
+        header:
+          other: "%{model}に%{count}つのエラーが発生しました。"
+  errors:
+    messages:
+      not_saved: "エラー"
+      expired_at_too_old: "は現時刻より新しい日時にしてください。"

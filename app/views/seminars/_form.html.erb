@@ -1,0 +1,21 @@
+<%= form_for(@seminar) do |f| %>
+  <% if @seminar.errors.any? %>
+    <div id="error_explanation">
+      <h2><%=t "activerecord.errors.template.header.other", :model => Seminar.model_name.human, :count => @seminar.errors.count %>:</h2>
+
+      <ul>
+      <% @seminar.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

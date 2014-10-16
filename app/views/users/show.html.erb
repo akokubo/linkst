@@ -1,0 +1,74 @@
+<p>
+  <strong><%= t('activerecord.attributes.user.number') %>:</strong>
+  <%= @user.number %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user.role') %>:</strong>
+  <%= @user.role.japanese_name %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user.seminar') %>:</strong>
+  <% if @user.seminar %><%= @user.seminar.name %><% end %>
+</p>
+
+
+<p>
+  <strong><%= t('activerecord.attributes.user.name') %>:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user.email') %>:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user.fpno') %>:</strong>
+  <%= @user.fpno %>
+</p>
+
+
+<p>
+  <strong><%= t('activerecord.models.status') %>:</strong>
+  Lv.<%= @user.average_level.value %> (<%= @user.total_experience %> / <%= @user.average_level.next.required_experience * @categories.count %>)
+</p>
+<ul>
+	<% @categories.each do |category| %>
+	  <li>
+	    <strong><%= category.name %>:</strong>
+	    <% experience = @user.statuses.find_by(category_id: category.id).experience %>
+	    <% level = Level.get_level_from_experience(experience) %>
+	    Lv.<%= level.value %> (<%= experience %> / <%= level.next.required_experience %>)
+	  </li>
+	<% end %>
+</ul>
+
+<p>
+  <strong><%= t('activerecord.models.assign') %>:</strong>
+</p>
+<% if current_user.has_role?("administrator") %>
+  <%= form_tag({controller: :histories, action: :create}, {method: :post}) do %>
+    <fieldset>
+      <%= hidden_field_tag "histories[user_id]", @user.id %>
+      <% assigns = @user.assigns %>
+      <% assigns.each do |assign| %>
+      <% mission = assign.mission %>
+        <%= check_box_tag :history, value = assign.mission.id, checked = false, {name: "histories[mission_ids][]", id: "mission_#{mission.id}"} %>
+        <%= label "mission", mission.id, "#{mission.category.name} Lv.#{mission.level.value}: #{mission.description}" %><br>
+      <% end %>
+      <%= submit_tag "ミッションの達成" %>
+    </fieldset>
+  <% end %>
+<% else %>
+  <ul>
+  <% @user.assigns.each do |assign| %>
+    <% mission = assign.mission %>
+    <li><strong><%= "#{mission.category.name} Lv.#{mission.level.value}" %></strong>: <%= "#{mission.description}" %></li>
+  <% end %>
+  </ul>
+<% end %>
+
+<%= link_to t('devise.passwords.edit.change_your_password', :default => 'Change your password'), edit_user_registration_path %><br />
+<%= link_to t('Back'), users_path %>

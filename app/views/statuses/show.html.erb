@@ -1,0 +1,17 @@
+<p>
+  <strong><%= t('activerecord.attributes.status.user') %>:</strong>
+  <%= @status.user %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.status.category') %>:</strong>
+  <%= @status.category %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.status.experience') %>:</strong>
+  <%= @status.experience %>
+</p>
+
+<%= link_to t('Edit'), edit_status_path(@status) %> |
+<%= link_to t('Back'), statuses_path %>

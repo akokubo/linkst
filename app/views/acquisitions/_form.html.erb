@@ -1,0 +1,29 @@
+<%= form_for(@acquisition) do |f| %>
+  <% if @acquisition.errors.any? %>
+    <div id="error_explanation">
+      <h2><%=t "activerecord.errors.template.header.other", :model => Acquisition.model_name.human, :count => @acquisition.errors.count %>:</h2>
+
+      <ul>
+      <% @acquisition.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :mission_id %><br>
+    <%= f.text_field :mission_id %>
+  </div>
+  <div class="field">
+    <%= f.label :category_id %><br>
+    <%= f.text_field :category_id %>
+  </div>
+  <div class="field">
+    <%= f.label :experience %><br>
+    <%= f.number_field :experience %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

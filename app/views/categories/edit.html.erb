@@ -1,0 +1,7 @@
+<% provide :title,  t("Editing ", model: t('activerecord.models.category').pluralize(:locale)) %>
+<h1><%= yield(:title) %></h1>
+
+<%= render 'form' %>
+
+<%= link_to t('Show'), @category %> |
+<%= link_to t('Back'), categories_path %>

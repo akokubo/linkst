@@ -1,0 +1,12 @@
+<p>
+  <strong><%= t('activerecord.attributes.level.value') %>:</strong>
+  <%= @level.value %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.level.required_experience') %>:</strong>
+  <%= @level.required_experience %>
+</p>
+
+<%= link_to t('Edit'), edit_level_path(@level) %> |
+<%= link_to t('Back'), levels_path %>

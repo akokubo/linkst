@@ -1,0 +1,12 @@
+<p>
+  <strong><%= t('activerecord.attributes.history.user') %>:</strong>
+  <%= @history.user.name %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.history.mission') %>:</strong>
+  <%= @history.mission.description %>
+</p>
+
+<%= link_to t('Edit'), edit_history_path(@history) %> |
+<%= link_to t('Back'), histories_path %>

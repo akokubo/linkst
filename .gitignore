@@ -14,3 +14,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+/db/seeds/development/users.csv
+/db/seeds/development/users.rb
+/db/seeds/development/seminars.csv

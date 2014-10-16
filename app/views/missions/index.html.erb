@@ -1,0 +1,40 @@
+<% provide :title,  t("Listing ", model: t('activerecord.models.mission').pluralize(:locale)) %>
+<h1><%= yield(:title) %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th rowspan="2"><%= t('activerecord.attributes.mission.description') %></th>
+      <th rowspan="2"><%= t('activerecord.attributes.mission.category') %></th>
+      <th rowspan="2"><%= t('activerecord.attributes.mission.level') %></th>
+      <th colspan="<%= @categories.count %>"><%= t('activerecord.models.acquisition') %></th>
+      <th rowspan="2" colspan="3"></th>
+    </tr>
+    <tr>
+      <% @categories.each do |category| %>
+        <th><%= category.name %></th>
+      <% end %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @missions.each do |mission| %>
+      <tr>
+        <td><%= mission.description %></td>
+        <td><%= mission.category.name %></td>
+        <td><%= mission.level.value %></td>
+        <% @categories.each do |category| %>
+          <td><%= mission.acquisitions.find_by(category_id: category.id).experience %></td>
+        <% end %>
+
+        <td><%= link_to t('Show'), mission %></td>
+        <td><%= link_to t('Edit'), edit_mission_path(mission) %></td>
+        <td><%= link_to t('Destroy'), mission, method: :delete, data: { confirm: t('Are you sure?') } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to t('New ', model: t('activerecord.models.mission')), new_mission_path %>

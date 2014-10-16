@@ -11,7 +11,88 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140922050509) do
+ActiveRecord::Schema.define(version: 20141016044124) do
+
+  create_table "acquisitions", force: true do |t|
+    t.integer  "mission_id"
+    t.integer  "category_id"
+    t.integer  "experience"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "acquisitions", ["category_id"], name: "index_acquisitions_on_category_id"
+  add_index "acquisitions", ["mission_id"], name: "index_acquisitions_on_mission_id"
+
+  create_table "assigns", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "mission_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "assigns", ["mission_id"], name: "index_assigns_on_mission_id"
+  add_index "assigns", ["user_id"], name: "index_assigns_on_user_id"
+
+  create_table "categories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "histories", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "mission_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "recent_experience"
+    t.integer  "experience"
+  end
+
+  add_index "histories", ["mission_id"], name: "index_histories_on_mission_id"
+  add_index "histories", ["user_id"], name: "index_histories_on_user_id"
+
+  create_table "levels", force: true do |t|
+    t.integer  "value"
+    t.integer  "required_experience"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "missions", force: true do |t|
+    t.string   "description"
+    t.integer  "category_id"
+    t.integer  "level_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "missions", ["category_id"], name: "index_missions_on_category_id"
+  add_index "missions", ["level_id"], name: "index_missions_on_level_id"
+
+  create_table "roles", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "japanese_name"
+  end
+
+  create_table "seminars", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "statuses", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "category_id"
+    t.integer  "experience"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "statuses", ["category_id"], name: "index_statuses_on_category_id"
+  add_index "statuses", ["user_id"], name: "index_statuses_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -28,10 +109,15 @@ ActiveRecord::Schema.define(version: 20140922050509) do
     t.datetime "updated_at"
     t.string   "name"
     t.string   "number"
-    t.string   "idm"
+    t.string   "fpno"
+    t.integer  "role_id"
+    t.integer  "seminar_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["fpno"], name: "index_users_on_fpno", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["role_id"], name: "index_users_on_role_id"
+  add_index "users", ["seminar_id"], name: "index_users_on_seminar_id"
 
 end

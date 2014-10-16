@@ -1,0 +1,35 @@
+<% provide :title,  t("Listing ", model: t('activerecord.models.user').pluralize(:locale)) %>
+<h1><%= yield(:title) %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= t('activerecord.attributes.user.number') %></th>
+      <th><%= t('activerecord.attributes.user.role') %></th>
+      <th><%= t('activerecord.attributes.user.seminar') %></th>
+      <th><%= t('activerecord.attributes.user.name') %></th>
+      <th><%= t('activerecord.attributes.user.email') %></th>
+      <th><%= t('activerecord.attributes.user.total_experience') %></th>
+      <th><%= t('activerecord.attributes.user.average_level') %></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.number %></td>
+        <td><%= user.role.japanese_name %></td>
+        <td><% if user.seminar %><%= user.seminar.name %><% end %></td>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.total_experience %></td>
+        <td><%= user.average_level.value %></td>
+        <td><%= link_to t('Show'), user_path(fpno: user.fpno) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

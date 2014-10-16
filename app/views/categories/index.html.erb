@@ -1,0 +1,26 @@
+<% provide :title,  t("Listing ", model: t('activerecord.models.category').pluralize(:locale)) %>
+<h1><%= yield(:title) %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= t('activerecord.attributes.category.name') %></th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr>
+        <td><%= category.name %></td>
+        <td><%= link_to t('Show'), category %></td>
+        <td><%= link_to t('Edit'), edit_category_path(category) %></td>
+        <td><%= link_to t('Destroy'), category, method: :delete, data: { confirm: t('Are you sure?') } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to t('New ', model: t('activerecord.models.category')), new_category_path %>

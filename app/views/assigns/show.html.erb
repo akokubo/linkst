@@ -1,0 +1,12 @@
+<p>
+  <strong><%= t('activerecord.attributes.assign.user') %>:</strong>
+  <%= @assign.user %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.assign.mission') %>:</strong>
+  <%= @assign.mission %>
+</p>
+
+<%= link_to t('Edit'), edit_assign_path(@assign) %> |
+<%= link_to t('Back'), assigns_path %>

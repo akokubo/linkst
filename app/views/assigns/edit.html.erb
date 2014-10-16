@@ -1,0 +1,7 @@
+<% provide :title,  t("Editing ", model: t('activerecord.models.assign').pluralize(:locale)) %>
+<h1><%= yield(:title) %></h1>
+
+<%= render 'form' %>
+
+<%= link_to t('Show'), @assign %> |
+<%= link_to t('Back'), assigns_path %>

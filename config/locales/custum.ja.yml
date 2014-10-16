@@ -1,0 +1,39 @@
+ja:
+  "Visualize My Life": 学生生活「見える化」
+  "Project 'Visualize My Life'": 学生生活「見える化」プロジェクト
+  "aomori_univ": 青森大学
+  "linkst": 株式会社リンクステーション
+  "Update": 更新
+  "Show": 詳細表示
+  "Edit": 編集
+  "Destroy": 削除
+  "Back": 戻る
+  "Welcome": ようこそ
+  "Hello": こんにちは
+  "Home": ホーム
+  "Menu": メニュー
+  "Self Informations": わたしの情報
+  "Settings": ユーザー情報の編集
+  "System": システム
+  "Instructions": 使い方
+  "About": このサイトについて
+  "Contact": お問い合わせ
+  "My Information": わたしの情報
+  "User": ユーザー
+  "Datetime": 日時
+  "If you don't have an account you can sign up!": はじめての方はユーザー登録してください。
+  "Listing ": "%{model}一覧"
+  "New ": "新しい%{model}を作成"
+  "Editing ": "%{model}を編集"
+  "Search ": "%{model}を検索"
+  "There is no ": "%{model}は登録されていません"
+  "You cannot edit!": あなたは編集できません
+  "You cannot delete!": あなたは削除できません
+  "Other": その他
+  "Admin Menu": 管理メニュー
+  "Sign up": アカウント登録
+  "Sign in": ログイン
+  "Sign out": ログアウト
+  "Are you sure?": 本当に削除しますか？
+  "User Ranking": ユーザー・ランキング
+  "Recent Histories": 最近のミッションの履歴

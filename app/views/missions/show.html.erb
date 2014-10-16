@@ -1,0 +1,27 @@
+<p>
+  <strong><%= t('activerecord.attributes.mission.description') %>:</strong>
+  <%= @mission.description %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.mission.category') %>:</strong>
+  <%= @mission.category.name %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.mission.level') %>:</strong>
+  <%= @mission.level.value %>
+</p>
+
+<p><strong><%= t('activerecord.models.acquisition') %>:</strong></p>
+<div style="margin-left: 10px;">
+<% @categories.each do |category| %>
+	<p>
+	  <strong><%= category.name %>:</strong>
+	  <%= @mission.acquisitions.find_by(category_id: category.id).experience %>
+	</p>
+<% end %>
+</div>
+
+<%= link_to t('Edit'), edit_mission_path(@mission) %> |
+<%= link_to t('Back'), missions_path %>

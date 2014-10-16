@@ -1,0 +1,17 @@
+<p>
+  <strong><%= t('activerecord.attributes.acquisition.mission') %>:</strong>
+  <%= @acquisition.mission %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.acquisition.category') %>:</strong>
+  <%= @acquisition.category %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.acquisition.experience') %>:</strong>
+  <%= @acquisition.experience %>
+</p>
+
+<%= link_to t('Edit'), edit_acquisition_path(@acquisition) %> |
+<%= link_to t('Back'), acquisitions_path %>

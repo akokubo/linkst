@@ -1,0 +1,25 @@
+<%= form_for(@level) do |f| %>
+  <% if @level.errors.any? %>
+    <div id="error_explanation">
+      <h2><%=t "activerecord.errors.template.header.other", :model => Level.model_name.human, :count => @level.errors.count %>:</h2>
+
+      <ul>
+      <% @level.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :value %><br>
+    <%= f.number_field :value %>
+  </div>
+  <div class="field">
+    <%= f.label :required_experience %><br>
+    <%= f.number_field :required_experience %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

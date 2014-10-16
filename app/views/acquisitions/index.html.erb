@@ -1,0 +1,30 @@
+<% provide :title,  t("Listing ", model: t('activerecord.models.acquisition').pluralize(:locale)) %>
+<h1><%= yield(:title) %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= t('activerecord.attributes.acquisition.mission') %></th>
+      <th><%= t('activerecord.attributes.acquisition.category') %></th>
+      <th><%= t('activerecord.attributes.acquisition.experience') %></th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @acquisitions.each do |acquisition| %>
+      <tr>
+        <td><%= acquisition.mission.description %></td>
+        <td><%= acquisition.category.name %></td>
+        <td><%= acquisition.experience %></td>
+        <td><%= link_to t('Show'), acquisition %></td>
+        <td><%= link_to t('Edit'), edit_acquisition_path(acquisition) %></td>
+        <td><%= link_to t('Destroy'), acquisition, method: :delete, data: { confirm: t('Are you sure?') } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to t('New ', model: t('activerecord.models.acquisition')), new_acquisition_path %>

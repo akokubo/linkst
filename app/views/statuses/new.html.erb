@@ -1,0 +1,6 @@
+<% provide :title,  t("New ", model: t('activerecord.models.status').pluralize(:locale)) %>
+<h1><%= yield(:title) %></h1>
+
+<%= render 'form' %>
+
+<%= link_to t('Back'), statuses_path %>

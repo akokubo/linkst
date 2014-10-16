@@ -1,0 +1,27 @@
+<%= form_for(@history) do |f| %>
+  <% if @history.errors.any? %>
+    <div id="error_explanation">
+      <h2><%=t "activerecord.errors.template.header.other", :model => History.model_name.human, :count => @history.errors.count %>:</h2>
+
+      <ul>
+      <% @history.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user_id, t('activerecord.models.user') %><br>
+    <%= f.collection_select :user_id, @users, :id, :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :mission_id, t('activerecord.models.mission') %><br>
+    <%= f.collection_select :mission_id, @missions, :id, :description %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
