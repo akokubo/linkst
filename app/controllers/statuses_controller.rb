@@ -29,7 +29,7 @@ class StatusesController < ApplicationController
 
     respond_to do |format|
       if @status.save
-        format.html { redirect_to @status, notice: 'Status was successfully created.' }
+        format.html { redirect_to @status, notice: t('activerecord.successful.messages.created', :model => Status.model_name.human) }
         format.json { render :show, status: :created, location: @status }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class StatusesController < ApplicationController
   def update
     respond_to do |format|
       if @status.update(status_params)
-        format.html { redirect_to @status, notice: 'Status was successfully updated.' }
+        format.html { redirect_to @status, notice: t('activerecord.successful.messages.updated', :model => Status.model_name.human) }
         format.json { render :show, status: :ok, location: @status }
       else
         format.html { render :edit }
@@ -57,7 +57,7 @@ class StatusesController < ApplicationController
   def destroy
     @status.destroy
     respond_to do |format|
-      format.html { redirect_to statuses_url, notice: 'Status was successfully destroyed.' }
+      format.html { redirect_to statuses_url, notice: t('activerecord.successful.messages.destroyed', :model => Status.model_name.human) }
       format.json { head :no_content }
     end
   end

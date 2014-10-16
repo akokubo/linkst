@@ -29,7 +29,7 @@ class SeminarsController < ApplicationController
 
     respond_to do |format|
       if @seminar.save
-        format.html { redirect_to @seminar, notice: 'Seminar was successfully created.' }
+        format.html { redirect_to @seminar, notice: t('activerecord.successful.messages.created', :model => Seminar.model_name.human) }
         format.json { render :show, status: :created, location: @seminar }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class SeminarsController < ApplicationController
   def update
     respond_to do |format|
       if @seminar.update(seminar_params)
-        format.html { redirect_to @seminar, notice: 'Seminar was successfully updated.' }
+        format.html { redirect_to @seminar, notice: t('activerecord.successful.messages.updated', :model => Seminar.model_name.human) }
         format.json { render :show, status: :ok, location: @seminar }
       else
         format.html { render :edit }
@@ -57,7 +57,7 @@ class SeminarsController < ApplicationController
   def destroy
     @seminar.destroy
     respond_to do |format|
-      format.html { redirect_to seminars_url, notice: 'Seminar was successfully destroyed.' }
+      format.html { redirect_to seminars_url, notice: t('activerecord.successful.messages.destroyed', :model => Seminar.model_name.human) }
       format.json { head :no_content }
     end
   end

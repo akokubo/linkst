@@ -71,7 +71,8 @@
       </div>
     <% end %>
 
-    <%= yield %>　　<!-- ※この行は各ページを表示するための、最初から存在する。 -->
+    <%= yield %>　　<!-- ※この行は各ページの内容を表示するためのもの -->
+
     <%= debug([params, request.ip, request.remote_ip]) if Rails.env.development? %>
   </div><!-- /.container -->
 
