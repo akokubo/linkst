@@ -1,5 +1,6 @@
 class LevelsController < ApplicationController
   before_action :set_level, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /levels
   # GET /levels.json

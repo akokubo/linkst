@@ -1,5 +1,6 @@
 class SeminarsController < ApplicationController
   before_action :set_seminar, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /seminars
   # GET /seminars.json

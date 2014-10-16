@@ -1,5 +1,6 @@
 class HistoriesController < ApplicationController
   before_action :set_history, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /histories
   # GET /histories.json

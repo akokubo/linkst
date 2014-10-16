@@ -1,5 +1,6 @@
 class StatusesController < ApplicationController
   before_action :set_status, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /statuses
   # GET /statuses.json

@@ -1,5 +1,6 @@
 class AssignsController < ApplicationController
   before_action :set_assign, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /assigns
   # GET /assigns.json

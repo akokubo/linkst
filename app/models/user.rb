@@ -9,6 +9,11 @@ class User < ActiveRecord::Base
   has_many :histories, dependent: :destroy
   has_many :assigns, dependent: :destroy
 
+  validates :number, presence: true
+  validates :role_id, presence: true
+  validates :name, presence: true
+  validates :idm, presence: true, uniqueness: true
+
   after_create :add_statuses_and_assigns
 
   def total_experience
@@ -64,6 +69,10 @@ class User < ActiveRecord::Base
       mission = missions[index]
       self.assigns.create(mission_id: mission.id)
     end
+  end
+
+  def has_role?(name)
+    self.role && self.role.name == name
   end
 
   private

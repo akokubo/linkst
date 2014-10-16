@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show]
+  load_and_authorize_resource
 
   def index
     @categories = Category.all
