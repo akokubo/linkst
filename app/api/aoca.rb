@@ -13,17 +13,20 @@ module Aoca
     resource :users do
       desc "Users ranking."
       get '/' do
-        users = User.limit(10).order('created_at DESC')
-        hashes = []
-        users.each do |user|
+        statuses = Status.group(:user_id)
+          .select('user_id, SUM(experience) AS total_experience')
+          .order('total_experience DESC').limit(10)
+        ranking = []
+        statuses.each do |status|
+          user = User.find(status.user_id)
           hash = {
             name: user.name,
             total_experience: user.total_experience,
-            average_level: user.average_level.value
+            average_level: user.average_level.value            
           }
-          hashes << hash
+          ranking << hash
         end
-        hashes
+        ranking
       end
 
       desc "Return a status."
@@ -76,7 +79,7 @@ module Aoca
     resource :histories do
       desc "Return a public timeline."
       get '/' do
-        histories = History.limit(10).order('created_at DESC')
+        histories = History.order('created_at DESC').limit(10)
         hashes = []
         histories.each do |history|
           hashes << {
@@ -93,26 +96,41 @@ module Aoca
       desc "Create a history."
       params do
         requires :fpno, type: String, desc: "Your fpno."
-        requires :mission_id, type: Integer, desc: "Mission id."
+        requires :mission_ids, type: Array, desc: "Mission ids."
       end
       post do
         authenticate!
         user = User.find_by(fpno: params[:fpno])
 
         if user
-          history = History.new({user_id: user.id, mission_id: params[:mission_id]})
-          mission = history.mission
-          history.recent_experience = user.total_experience
-          mission.acquisitions.each do |acquisition|
-            category_id = acquisition.category_id
-            status = user.statuses.find_by(category_id: category_id)
-            status.experience += acquisition.experience
-            status.save
+          mission_ids = params[:mission_ids]
+          histories = []
+          mission_ids.each do |mission_id|
+
+            if user.assigns.find_by(mission_id: mission_id)
+              history = History.new(user_id: user.id, mission_id: mission_id)
+              mission = Mission.find(mission_id)
+              history.recent_experience = user.total_experience
+              mission.acquisitions.each do |acquisition|
+                category_id = acquisition.category_id
+                status = user.statuses.find_by(category_id: category_id)
+                status.experience += acquisition.experience
+                status.save
+              end
+              history.experience = user.reload.total_experience
+              histories << history
+            end
+
           end
-          history.experience = user.reload.total_experience
-          user.reassign_missions
-          history.save
-          history
+
+          if histories.count > 0
+            History.transaction do
+              histories.each do |history|
+                history.save
+              end
+              user.reassign_missions
+            end
+          end
         end
       end
 
