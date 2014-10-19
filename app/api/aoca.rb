@@ -1,159 +1,99 @@
-module Aoca
-  class API < Grape::API
-    version 'v1', using: :header, vendor: 'aoca'
-    format :json
+class User < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
+  belongs_to :role
+  belongs_to :seminar
+  has_many :statuses, dependent: :destroy
+  has_many :histories, dependent: :destroy
+  has_many :assigns, dependent: :destroy
 
-    helpers do
-      def authenticate!
-        true
-        # error!('401 Unauthorized', 401) unless request.ip == '127.0.0.1'
-      end
+  validates :number, presence: true
+  validates :role_id, presence: true
+  validates :name, presence: true
+  validates :fpno, presence: true, uniqueness: true
+
+  before_save :upcase_fpno
+  after_create :add_statuses_and_assigns
+
+  def total_experience
+    experience = 0
+    self.statuses.each do |status|
+      experience += status.experience
+    end
+    experience
+  end
+
+  def average_level
+    categories = Category.all
+    average_experience = total_experience / categories.count
+    Level.get_level_from_experience(average_experience)
+  end
+
+  def tone(level, random)
+    level_value = level.value
+    level_value = (level_value - 1.0) / 8.0
+
+    x = random.rand(1.0)
+    a = 4.0 / level_value
+    z = 1.0
+    value = (-Math.log(1.0 / x - 1.0) / a + level_value) / z
+    if value > 1.0
+      value = 1.0
+    elsif value < 0.0
+      value = 0.0
     end
 
-    resource :users do
-      desc "Users ranking."
-      get '/' do
-        statuses = Status.group(:user_id)
-          .select('user_id, SUM(experience) AS total_experience')
-          .order('total_experience DESC').limit(10)
-        ranking = []
-        statuses.each do |status|
-          user = User.find(status.user_id)
-          hash = {
-            name: user.name,
-            total_experience: user.total_experience,
-            average_level: user.average_level.value            
-          }
-          ranking << hash
-        end
-        ranking
-      end
+    tone_level_value = value
+    tone_level_value = (tone_level_value * 8 + 1).to_i
 
-      desc "Return a status."
-      params do
-        requires :fpno, type: String, desc: "Your fpno."
-      end
-      route_param :fpno do
-        get do
-          user = User.find_by(fpno: params[:fpno])
-          categories = Category.all
-          hash = {
-            number: user.number,
-            role: user.role.japanese_name,
-            name: user.name,
-            email: user.email,
-            fpno: user.fpno,
-            average_level: user.average_level.value,
-            total_experience: user.total_experience,
-            next_average_level_required_experience: user.average_level.next.required_experience,
-            statuses: [
-            ],
-            missions: [
-            ]
-          }
-          categories.each do |category|
-            status = user.statuses.find_by(category_id: category.id)
-            level = Level.get_level_from_experience(status.experience)
-            hash[:statuses] << {
-              name: category.name,
-              experience: status.experience,
-              level: level.value,
-              next_level_required_experience: level.next.required_experience
-            }
-          end
-          user.assigns.each do |assign|
-            mission = assign.mission
-            hash[:missions] << {
-              id: mission.id,
-              name: mission.category.name,
-              level: mission.level.value,
-              description: mission.description
-            }
-          end
-          hash
-        end
-      end
+    tone_level = Level.find_by(value: tone_level_value)
+    tone_level
+  end
 
-    end
+  def reassign_missions
+    self.assigns.destroy_all
 
-    resource :histories do
-      desc "Return a public timeline."
-      get '/' do
-        histories = History.order('created_at DESC').limit(10)
-        hashes = []
-        histories.each do |history|
-          hashes << {
-            user: history.user.name,
-            category: history.mission.category.name,
-            level: history.mission.level.value,
-            mission: history.mission.description,
-            created_at: history.created_at
-          }
-        end
-        hashes
-      end
+    categories = Category.all
 
-      desc "Create a history."
-      params do
-        requires :fpno, type: String, desc: "Your fpno."
-        requires :mission_ids, type: Array, desc: "Mission ids."
-      end
-      post do
-        authenticate!
-        user = User.find_by(fpno: params[:fpno])
+    random = Random.new
 
-        if user
-          mission_ids = params[:mission_ids]
-          histories = []
-          mission_ids.each do |mission_id|
+    categories.each do |category|
+      status = self.statuses.find_by(category_id: category.id)
+      level = Level.get_level_from_experience(status.experience)
+      mission_level = tone(level, random)
+      missions = Mission.where(category_id: category.id, level_id: mission_level.id)
 
-            if user.assigns.find_by(mission_id: mission_id)
-              history = History.new(user_id: user.id, mission_id: mission_id)
-              mission = Mission.find(mission_id)
-              history.recent_experience = user.total_experience
-              mission.acquisitions.each do |acquisition|
-                category_id = acquisition.category_id
-                status = user.statuses.find_by(category_id: category_id)
-                status.experience += acquisition.experience
-                status.save
-              end
-              history.experience = user.reload.total_experience
-              histories << history
-            end
-
-          end
-
-          if histories.count > 0
-            History.transaction do
-              histories.each do |history|
-                history.save
-              end
-              user.reassign_missions
-            end
-          end
-        end
-      end
-
-      desc "Return histories."
-      params do
-        requires :fpno, type: String, desc: "Your fpno."
-      end
-      route_param :fpno do
-        get do
-          user = User.find_by(fpno: params[:fpno])
-          histories = user.histories
-          hashes = []
-          histories.each do |history|
-            hashes << {
-              category: history.mission.category.name,
-              level: history.mission.level.value,
-              mission: history.mission.description,
-              created_at: history.created_at
-            }
-          end
-          hashes
-        end
-      end
+      missions_count = missions.count
+      index = random.rand(missions_count)
+      mission = missions[index]
+      self.assigns.create(mission_id: mission.id)
     end
   end
+
+  def has_role?(name)
+    self.role && self.role.name == name
+  end
+
+  private
+
+    def add_statuses_and_assigns
+      level_required_experience_minimum = Level.minimum(:required_experience)
+      level = Level.find_by(required_experience: level_required_experience_minimum)
+
+      categories = Category.all
+
+      categories.each do |category|
+        self.statuses.create(
+          category_id: category.id,
+          experience: 0)
+        first_mission = Mission.find_by(category_id: category.id, level_id: level.id)
+        self.assigns.create(mission_id: first_mission.id)
+      end
+    end
+
+    def upcase_fpno
+      self.fpno = self.fpno.upcase
+    end
 end
