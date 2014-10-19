@@ -36,6 +36,7 @@ module Aoca
       route_param :fpno do
         get do
           user = User.find_by(fpno: params[:fpno])
+          error!({error:"404 Not Found", detail:"user not found with fpno=#{params[:fpno]}"}, 404) unless user
           categories = Category.all
           hash = {
             number: user.number,
@@ -101,37 +102,37 @@ module Aoca
       post do
         authenticate!
         user = User.find_by(fpno: params[:fpno])
+        error!({error:"404 Not Found", detail:"user not found with fpno=#{params[:fpno]}"}, 404) unless user
 
-        if user
-          mission_ids = params[:mission_ids]
-          histories = []
-          mission_ids.each do |mission_id|
+        mission_ids = params[:mission_ids]
+        histories = []
+        mission_ids.each do |mission_id|
+          assign = user.assigns.find_by(mission_id: mission_id)
+          error!({error:"404 Not Found", detail:"mission_id=#{mission_id} dose not assigned with fpno=#{params[:fpno]}"}, 404) unless assign
 
-            if user.assigns.find_by(mission_id: mission_id)
-              history = History.new(user_id: user.id, mission_id: mission_id)
-              mission = Mission.find(mission_id)
-              history.recent_experience = user.total_experience
-              mission.acquisitions.each do |acquisition|
-                category_id = acquisition.category_id
-                status = user.statuses.find_by(category_id: category_id)
-                status.experience += acquisition.experience
-                status.save
-              end
-              history.experience = user.reload.total_experience
-              histories << history
-            end
-
+          history = History.new(user_id: user.id, mission_id: mission_id)
+          mission = Mission.find(mission_id)
+          history.recent_experience = user.total_experience
+          mission.acquisitions.each do |acquisition|
+            category_id = acquisition.category_id
+            status = user.statuses.find_by(category_id: category_id)
+            status.experience += acquisition.experience
+            status.save
           end
+          history.experience = user.reload.total_experience
+          histories << history
 
-          if histories.count > 0
-            History.transaction do
-              histories.each do |history|
-                history.save
-              end
-              user.reassign_missions
+        end
+
+        if histories.count > 0
+          History.transaction do
+            histories.each do |history|
+              history.save
             end
+            user.reassign_missions
           end
         end
+        hash = {fpno: params[:fpno], mission_ids: params[:mission_ids]}
       end
 
       desc "Return histories."
@@ -141,6 +142,8 @@ module Aoca
       route_param :fpno do
         get do
           user = User.find_by(fpno: params[:fpno])
+          error!({error:"404 Not Found", detail:"user not found with fpno=#{params[:fpno]}"}, 404) unless user
+
           histories = user.histories
           hashes = []
           histories.each do |history|
@@ -154,6 +157,9 @@ module Aoca
           hashes
         end
       end
+    end
+    route :any, '*path' do
+      error!({error: "404 Not Found", detail:"routing error"}, 404)
     end
   end
 end

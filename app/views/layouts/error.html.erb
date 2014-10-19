@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title><%= t('Visualize My Life') %></title>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+<body role="document">
+
+  <!-- Fixed navbar -->
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <%= link_to t('Visualize My Life'), root_path, class: "navbar-brand" %>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><%= link_to t("Home"), root_path %></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to t("Sign in"), new_user_session_path, :class => 'navbar-link' %></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+
+
+
+  <div class="container theme-showcase" role="main">
+    <% flash.each do |key, value| %>
+      <% devise_to_bootstrap = { 'alert' => 'warning', 'notice' => 'info', 'success' => 'success', 'error' => 'danger' } %>
+      <div class="alert alert-<%= devise_to_bootstrap[key] %>">
+        <a href="#" data-dismiss="alert" class="close">×</a>
+          <ul>
+            <li>
+              <%= value %>
+            </li>
+          </ul>
+      </div>
+    <% end %>
+
+    <%= yield %>　　<!-- ※この行は各ページの内容を表示するためのもの -->
+
+    <%= debug([params, request.ip, request.remote_ip]) if Rails.env.development? %>
+  </div><!-- /.container -->
+
+  <footer class="footer">
+    <div class="container">
+      <small>
+        <%= t('aomori_univ', default: "Aomori Univ.") %> x <%= t('linkst', default: "Link Station, Co., Ltd.") %><br>
+        <%= t("Project 'Visualize My Life'") %>
+      </small>
+      <nav>
+        <ul>
+          <li><%= link_to t("About"), about_path %></li>
+          <li><%= link_to t("Contact"), contact_path %></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

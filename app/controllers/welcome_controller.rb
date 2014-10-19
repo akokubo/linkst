@@ -16,4 +16,9 @@ class WelcomeController < ApplicationController
 
   def contact
   end
+
+  def not_found
+    raise ApplicationController::RoutingError,
+      "No route matches #{request.path.inspect}"
+  end
 end

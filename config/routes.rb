@@ -38,6 +38,8 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
 
+  match "*anything" => "welcome#not_found", via: :get
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
