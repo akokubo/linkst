@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:email, :password, :password_confirmation, :current_password, :number, :role_id, :name, :fpno) }
   end
 
-  if Rails.env.development?
+  if Rails.env.production?
     rescue_from Exception, with: :rescue_500
     rescue_from ActionController::RoutingError, with: :rescue_404
     rescue_from ActiveRecord::RecordNotFound, with: :rescue_404
