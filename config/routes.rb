@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
   get '/users'  => 'users#index', as: :users
   get '/users/:fpno'  => 'users#show', as: :user
+  get '/users/:fpno/histories'  => 'users#histories', as: :user_histories
 
   get '/about'   => 'welcome#about',   as: :about
   get '/contact' => 'welcome#contact', as: :contact

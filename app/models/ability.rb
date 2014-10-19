@@ -35,17 +35,20 @@ class Ability
       can :access, :rails_admin
       can :dashboard
       can :manage, :all
+      can :histories, User
     elsif user.has_role?('teacher')
       can :read, :all
       can :access, :rails_admin
       can :dashboard
       can :manage, [] # teacherが管理できるモデル
       can :create, [History], user_id: user.id
+      can :histories, User
     else
       can :read, [Category, Level, Seminar] # 全ユーザーが読み出せるモデル
-      can :read, [Acquisition, Assign, History, Status], user_id: user.id
+      can :read, [Acquisition, Assign, History, Status, Role], user_id: user.id
       can :show, User, id: user.id
       can :create, [History], user_id: user.id
+      can :histories, User, user_id: user.id
     end
   end
 end

@@ -70,5 +70,6 @@
   </ul>
 <% end %>
 
-<%= link_to t('devise.passwords.edit.change_your_password', :default => 'Change your password'), edit_user_registration_path %><br />
-<%= link_to t('Back'), users_path %>
+<%= link_to t('activerecord.models.history'), user_histories_path %><br>
+<%= link_to t('devise.passwords.edit.change_your_password', :default => 'Change your password'), edit_user_registration_path %><br>
+<%= link_to t('Back'), root_path %>
