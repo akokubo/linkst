@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
   get '/users'  => 'users#index', as: :users
   get '/users/:fpno'  => 'users#show', as: :user
+  get '/users/:fpno/histories'  => 'users#histories', as: :user_histories
 
   get '/about'   => 'welcome#about',   as: :about
   get '/contact' => 'welcome#contact', as: :contact
@@ -36,6 +37,8 @@ Rails.application.routes.draw do
   mount Aoca::API => '/api'
 
   root 'welcome#index'
+
+  match "*anything" => "welcome#not_found", via: :get
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
