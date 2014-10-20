@@ -4,6 +4,36 @@
     <%= @user.total_experience %> / <%= @user.average_level.next.required_experience * @categories.count %>
   </div>
 </div>  
+<p>
+  <strong><%= t('activerecord.attributes.user.number') %>:</strong>
+  <%= @user.number %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user.role') %>:</strong>
+  <%= @user.role.japanese_name %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user.seminar') %>:</strong>
+  <% if @user.seminar %><%= @user.seminar.name %><% end %>
+</p>
+
+
+<p>
+  <strong><%= t('activerecord.attributes.user.name') %>:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user.email') %>:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user.fpno') %>:</strong>
+  <%= @user.fpno %>
+</p>
 
 <ul>
   <% @categories.each do |category| %>
@@ -24,79 +54,28 @@
 <p>
   <strong><%= t('activerecord.models.assign') %>:</strong>
 </p>
-<ul>
-  <% @user.assigns.each do |assign| %>
-    <li>
-      <%= assign.mission.category.name %>
-      Lv.<%= assign.mission.level.value %>
-      <%= assign.mission.description %>
-      <% history = History.new(user_id: @user.id, mission_id: assign.mission.id) %>
-      <%= form_for(history, html: { style: "display: inline;" }) do |f| %>
-          <%= f.hidden_field :user_id %>
-          <%= f.hidden_field :mission_id %>
-          <%= f.submit value: '実行' %>
+<% if current_user.has_role?("administrator") %>
+  <%= form_tag({controller: :histories, action: :create}, {method: :post}) do %>
+    <fieldset>
+      <%= hidden_field_tag "histories[user_id]", @user.id %>
+      <% assigns = @user.assigns %>
+      <% assigns.each do |assign| %>
+      <% mission = assign.mission %>
+        <%= check_box_tag :history, value = assign.mission.id, checked = false, {name: "histories[mission_ids][]", id: "mission_#{mission.id}"} %>
+        <%= label "mission", mission.id, "#{mission.category.name} Lv.#{mission.level.value}: #{mission.description}" %><br>
       <% end %>
-    </li>
+      <%= submit_tag "ミッションの達成" %>
+    </fieldset>
   <% end %>
-</ul>
+<% else %>
+  <ul>
+  <% @user.assigns.each do |assign| %>
+    <% mission = assign.mission %>
+    <li><strong><%= "#{mission.category.name} Lv.#{mission.level.value}" %></strong>: <%= "#{mission.description}" %></li>
+  <% end %>
+  </ul>
+<% end %>
 
-<p id="notice"><%= notice %></p>
-
-<div class="panel panel-primary">
-  <div class="panel-heading">
-    <h3 class="panel-title"><strong><%= t('activerecord.attributes.user.number') %></strong></h3>
-  </div>
-  <div class="panel-body">
-    <%= @user.number %>
-  </div>  
-</div>
-
-<div class="panel panel-primary">
-  <div class="panel-heading">
-    <h3 class="panel-title"><strong><%= t('activerecord.attributes.user.role') %></strong></h3>
-  </div>
-  <div class="panel-body">
-    <%= @user.role.japanese_name %>
-  </div>  
-</div>
-
-<div class="panel panel-primary">
-  <div class="panel-heading">
-    <h3 class="panel-title"><strong><%= t('activerecord.attributes.user.seminar') %></strong></h3>
-  </div>
-  <div class="panel-body">
-    <% if @user.seminar %><%= @user.seminar.name %><% end %>
-  </div>  
-</div>
-
-<div class="panel panel-primary">
-  <div class="panel-heading">
-    <h3 class="panel-title"><strong><%= t('activerecord.attributes.user.name') %></strong></h3>
-  </div>
-  <div class="panel-body">
-    <%= @user.name %>
-  </div>  
-</div>
-
-<div class="panel panel-primary">
-  <div class="panel-heading">
-    <h3 class="panel-title"><strong><%= t('activerecord.attributes.user.email') %></strong></h3>
-  </div>
-  <div class="panel-body">
-    <%= @user.email %>
-  </div>  
-</div>
-
-<div class="panel panel-primary">
-  <div class="panel-heading">
-    <h3 class="panel-title"><strong><%= t('activerecord.attributes.user.idm') %></strong></h3>
-  </div>
-  <div class="panel-body">
-    <%= @user.idm %>
-  </div>  
-</div>
-
-
-
-<%= link_to t('Settings'), edit_user_registration_path %> | 
-<%= link_to t('Back'), users_path %>
+<%= link_to t('activerecord.models.history'), user_histories_path %><br>
+<%= link_to t('devise.passwords.edit.change_your_password', :default => 'Change your password'), edit_user_registration_path %><br>
+<%= link_to t('Back'), root_path %>

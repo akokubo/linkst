@@ -1,5 +1,6 @@
 class MissionsController < ApplicationController
   before_action :set_mission, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /missions
   # GET /missions.json
@@ -38,7 +39,7 @@ class MissionsController < ApplicationController
 
     respond_to do |format|
       if @mission.save
-        format.html { redirect_to @mission, notice: 'Mission was successfully created.' }
+        format.html { redirect_to @mission, notice: t('activerecord.successful.messages.created', :model => Mission.model_name.human) }
         format.json { render :show, status: :created, location: @mission }
       else
         format.html { render :new }
@@ -53,7 +54,7 @@ class MissionsController < ApplicationController
   def update
     respond_to do |format|
       if @mission.update(mission_params)
-        format.html { redirect_to @mission, notice: 'Mission was successfully updated.' }
+        format.html { redirect_to @mission, notice: t('activerecord.successful.messages.updated', :model => Mission.model_name.human) }
         format.json { render :show, status: :ok, location: @mission }
       else
         format.html { render :edit }
@@ -67,7 +68,7 @@ class MissionsController < ApplicationController
   def destroy
     @mission.destroy
     respond_to do |format|
-      format.html { redirect_to missions_url, notice: 'Mission was successfully destroyed.' }
+      format.html { redirect_to missions_url, notice: t('activerecord.successful.messages.destroyed', :model => Mission.model_name.human) }
       format.json { head :no_content }
     end
   end

@@ -13,33 +13,37 @@ module Aoca
     resource :users do
       desc "Users ranking."
       get '/' do
-        users = User.limit(10).order('created_at DESC')
-        hashes = []
-        users.each do |user|
+        statuses = Status.group(:user_id)
+          .select('user_id, SUM(experience) AS total_experience')
+          .order('total_experience DESC').limit(10)
+        ranking = []
+        statuses.each do |status|
+          user = User.find(status.user_id)
           hash = {
             name: user.name,
             total_experience: user.total_experience,
-            average_level: user.average_level.value
+            average_level: user.average_level.value            
           }
-          hashes << hash
+          ranking << hash
         end
-        hashes
+        ranking
       end
 
       desc "Return a status."
       params do
-        requires :idm, type: String, desc: "Your idm."
+        requires :fpno, type: String, desc: "Your fpno."
       end
-      route_param :idm do
+      route_param :fpno do
         get do
-          user = User.find_by(idm: params[:idm])
+          user = User.find_by(fpno: params[:fpno])
+          error!({error:"404 Not Found", detail:"user not found with fpno=#{params[:fpno]}"}, 404) unless user
           categories = Category.all
           hash = {
             number: user.number,
             role: user.role.japanese_name,
             name: user.name,
             email: user.email,
-            idm: user.idm,
+            fpno: user.fpno,
             average_level: user.average_level.value,
             total_experience: user.total_experience,
             next_average_level_required_experience: user.average_level.next.required_experience,
@@ -76,7 +80,7 @@ module Aoca
     resource :histories do
       desc "Return a public timeline."
       get '/' do
-        histories = History.limit(10).order('created_at DESC')
+        histories = History.order('created_at DESC').limit(10)
         hashes = []
         histories.each do |history|
           hashes << {
@@ -92,16 +96,22 @@ module Aoca
 
       desc "Create a history."
       params do
-        requires :idm, type: String, desc: "Your idm."
-        requires :mission_id, type: Integer, desc: "Mission id."
+        requires :fpno, type: String, desc: "Your fpno."
+        requires :mission_ids, type: Array, desc: "Mission ids."
       end
       post do
         authenticate!
-        user = User.find_by(idm: params[:idm])
+        user = User.find_by(fpno: params[:fpno])
+        error!({error:"404 Not Found", detail:"user not found with fpno=#{params[:fpno]}"}, 404) unless user
 
-        if user
-          history = History.new({user_id: user.id, mission_id: params[:mission_id]})
-          mission = history.mission
+        mission_ids = params[:mission_ids]
+        histories = []
+        mission_ids.each do |mission_id|
+          assign = user.assigns.find_by(mission_id: mission_id)
+          error!({error:"404 Not Found", detail:"mission_id=#{mission_id} dose not assigned with fpno=#{params[:fpno]}"}, 404) unless assign
+
+          history = History.new(user_id: user.id, mission_id: mission_id)
+          mission = Mission.find(mission_id)
           history.recent_experience = user.total_experience
           mission.acquisitions.each do |acquisition|
             category_id = acquisition.category_id
@@ -110,19 +120,30 @@ module Aoca
             status.save
           end
           history.experience = user.reload.total_experience
-          user.reassign_missions
-          history.save
-          history
+          histories << history
+
         end
+
+        if histories.count > 0
+          History.transaction do
+            histories.each do |history|
+              history.save
+            end
+            user.reassign_missions
+          end
+        end
+        hash = {fpno: params[:fpno], mission_ids: params[:mission_ids]}
       end
 
       desc "Return histories."
       params do
-        requires :idm, type: String, desc: "Your idm."
+        requires :fpno, type: String, desc: "Your fpno."
       end
-      route_param :idm do
+      route_param :fpno do
         get do
-          user = User.find_by(idm: params[:idm])
+          user = User.find_by(fpno: params[:fpno])
+          error!({error:"404 Not Found", detail:"user not found with fpno=#{params[:fpno]}"}, 404) unless user
+
           histories = user.histories
           hashes = []
           histories.each do |history|
@@ -136,6 +157,9 @@ module Aoca
           hashes
         end
       end
+    end
+    route :any, '*path' do
+      error!({error: "404 Not Found", detail:"routing error"}, 404)
     end
   end
 end

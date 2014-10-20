@@ -28,7 +28,7 @@ namespace :db do
       Faker::Config.locale = :ja
       name  = Faker::Name.name
       Faker::Config.locale = :en
-      idm = Faker::Number.number(16)
+      fpno = SecureRandom.hex(5)
       email = Faker::Internet.email
       password  = "password"
       index = n % seminars.count
@@ -37,7 +37,7 @@ namespace :db do
         role_id: role_student_id,
         name: name,
         email: email,
-        idm: idm,
+        fpno: fpno,
         seminar_id: seminars[index].id,
         password: password,
         password_confirmation: password)

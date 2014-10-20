@@ -1,5 +1,6 @@
 class AssignsController < ApplicationController
   before_action :set_assign, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /assigns
   # GET /assigns.json
@@ -28,7 +29,7 @@ class AssignsController < ApplicationController
 
     respond_to do |format|
       if @assign.save
-        format.html { redirect_to @assign, notice: 'Assign was successfully created.' }
+        format.html { redirect_to @assign, notice: t('activerecord.successful.messages.created', :model => Assign.model_name.human) }
         format.json { render :show, status: :created, location: @assign }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class AssignsController < ApplicationController
   def update
     respond_to do |format|
       if @assign.update(assign_params)
-        format.html { redirect_to @assign, notice: 'Assign was successfully updated.' }
+        format.html { redirect_to @assign, notice: t('activerecord.successful.messages.updated', :model => Assign.model_name.human) }
         format.json { render :show, status: :ok, location: @assign }
       else
         format.html { render :edit }
@@ -56,7 +57,7 @@ class AssignsController < ApplicationController
   def destroy
     @assign.destroy
     respond_to do |format|
-      format.html { redirect_to assigns_url, notice: 'Assign was successfully destroyed.' }
+      format.html { redirect_to assigns_url, notice: t('activerecord.successful.messages.destroyed', :model => Assign.model_name.human) }
       format.json { head :no_content }
     end
   end
