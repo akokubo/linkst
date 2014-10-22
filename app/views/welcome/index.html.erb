@@ -1,33 +1,44 @@
 <h1><%= t('Welcome') %>!</h1>
+	<% if user_signed_in? %>
+	     	<p>
+		     	<button type="button" class="btn btn-info">
+		     		<%= link_to t("My Information"), user_path(fpno: current_user.fpno) ,:style=>"color:white;"%>
+		     	</button>
+	     	</p>
+			<p>
+				<button type="button" class="btn btn-info">
+					<%= link_to t("Sign out"), destroy_user_session_path, method: :delete ,:style=>"color:white;"%>
+				</button>		
+			</p>
+			<% else %>
+			<p>
+				<button type="button" class="btn btn-info">
+					<%= link_to t("Sign in"), new_user_session_path ,:style=>"color:white;"%>
+				</button>
+			</p>
+			<% end %>
 
-<% if user_signed_in? %>
-<p><%= link_to t("My Information"), user_path(fpno: current_user.fpno) %></p>
-<p><%= link_to t("Sign out"), destroy_user_session_path, method: :delete %></p>
-<% else %>
-<p><%= link_to t("Sign in"), new_user_session_path %></p>
-<% end %>
+		<% if @ranking.present? %>
+		  <h2><%= t('User Ranking') %></h2>
+		  <ul>
+			<% @ranking.each do |user| %>
+			  <li>Lv.<%= user.average_level.value %> (<%= user.total_experience %>): <%= user.name %></li>
+			<% end %>
+		  </ul>
+		<% end %>
 
-<% if @ranking.present? %>
-  <h2><%= t('User Ranking') %></h2>
-  <ul>
-	<% @ranking.each do |user| %>
-	  <li>Lv.<%= user.average_level.value %> (<%= user.total_experience %>): <%= user.name %></li>
-	<% end %>
-  </ul>
-<% end %>
-
-<% if @histories.present? %>
-  <h2><%= t('Recent Histories') %></h2>
-  <ul>
-	<% @histories.each do |history| %>
-	  <% user = history.user %>
-	  <% mission = history.mission %>
-	  <li>
-	    <%= I18n.l history.created_at %><br>
-	    <%= mission.category.name %> Lv.<%= mission.level.value %><br>
-	    &quot;<%= mission.description %>&quot;<br>
-	    by <%= user.name %>
-	  </li>
-	<% end %>
-  </ul>
-<% end %>
+		<% if @histories.present? %>
+		  <h2><%= t('Recent Histories') %></h2>
+		  <ul>
+			<% @histories.each do |history| %>
+			  <% user = history.user %>
+			  <% mission = history.mission %>
+			  <li>
+			    <%= I18n.l history.created_at %><br>
+			    <%= mission.category.name %> Lv.<%= mission.level.value %><br>
+			    &quot;<%= mission.description %>&quot;<br>
+			    by <%= user.name %>
+			  </li>
+			<% end %>
+		  </ul>
+		<% end %>
