@@ -56,13 +56,6 @@
 
     <div class="bg-info">
       <p>
-        <strong><%= t('activerecord.attributes.user.role') %>:</strong>
-        <%= @user.role.japanese_name %>
-      </p>
-    </div>
-
-    <div class="bg-info">
-      <p>
         <strong><%= t('activerecord.attributes.user.seminar') %>:</strong>
         <% if @user.seminar %><%= @user.seminar.name %><% end %>
       </p>
@@ -82,20 +75,21 @@
       </p>
     </div>
 
-    <div class="bg-info">
-      <p>
-        <strong><%= t('activerecord.attributes.user.fpno') %>:</strong>
-        <%= @user.fpno %>
-      </p>
-    </div>
+  <p>  
+  <button type="button" class="btn btn-info">
+  <%= link_to t('activerecord.models.history'), user_histories_path ,:style=>"color:white;"%>
+  </button>
+  </p>
 
+  <p>  
   <button type="button" class="btn btn-info">
-  <p><%= link_to t('activerecord.models.history'), user_histories_path ,:style=>"color:white;"%></p>
+  <%= link_to t('devise.passwords.edit.change_your_password', :default => 'Change your password'), edit_user_registration_path ,:style=>"color:white;"%>
   </button>
+  </p>
+
+  <p>
   <button type="button" class="btn btn-info">
-  <p><%= link_to t('devise.passwords.edit.change_your_password', :default => 'Change your password'), edit_user_registration_path ,:style=>"color:white;"%></p>
+  <%= link_to t('Back'), root_path ,:style=>"color:white;"%>
   </button>
-  <button type="button" class="btn btn-info">
-  <p><%= link_to t('Back'), root_path ,:style=>"color:white;"%></p>
-  </button>
+  </p>
 </div>
