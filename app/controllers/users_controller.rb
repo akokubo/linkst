@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 
   def histories
     if current_user.id == @user.id || current_user.has_role?("administrator")
-      @histories = History.where(user_id: @user.id)
+      @histories = History.where(user_id: @user.id).order('created_at DESC')
     end
   end
 
