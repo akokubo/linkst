@@ -32,10 +32,10 @@
         <% assigns = @user.assigns %>
         <% assigns.each do |assign| %>
         <% mission = assign.mission %>
-          <%= check_box_tag :history, value = assign.mission.id, checked = false, {name: "histories[mission_ids][]", id: "mission_#{mission.id}"} %>
+          <!--<%= check_box_tag :history, value = assign.mission.id, checked = false, {name: "histories[mission_ids][]", id: "mission_#{mission.id}"} %>-->
           <%= label "mission", mission.id, "#{mission.category.name} Lv.#{mission.level.value}: #{mission.description}" %><br>
         <% end %>
-        <%= submit_tag "ミッションの達成" %>
+        <!--<%= submit_tag "ミッションの達成" %>-->
       </fieldset>
     <% end %>
   <% else %>
