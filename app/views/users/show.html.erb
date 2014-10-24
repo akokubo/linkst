@@ -1,8 +1,12 @@
-<h1>私の情報</h1>
+<h1><%= t('Self Informations') %></h1>
 <div class="container">
-  <strong><%= t('activerecord.models.status') %></strong>:Lv.<%= @user.average_level.value %>　次のレベルまで<%= @user.total_experience %> / <%= @user.average_level.next.required_experience * @categories.count %>
+  <strong><%= t('activerecord.models.status') %></strong>:
+  Lv.<%= @user.average_level.value %>
+  <%= t('Required Experiments for Next Level') %>
+  <%= @user.total_experience %> /
+  <%= @user.average_level.next.required_experience * @categories.count %>
   <div class="progress">
-    <div class="progress-bar"aria-valuemin="0" aria-valuemax="<%=@user.average_level.next.required_experience * @categories.count%>" style="width:<%= @user.total_experience %>%;">
+    <div class="progress-bar" aria-valuemin="0" aria-valuemax="<%=@user.average_level.next.required_experience * @categories.count%>" style="width:<%= @user.total_experience %>%;">
     </div>
   </div>  
 
@@ -13,7 +17,9 @@
         <% experience = @user.statuses.find_by(category_id: category.id).experience %>
         <% level = Level.get_level_from_experience(experience) %>
         Lv.<%= level.value %>
-        次のレベルまで<%= experience %> / <%= level.next.required_experience %>
+        <%= t('Required Experiments for Next Level') %>
+        <%= experience %> /
+        <%= level.next.required_experience %>
         <div class="progress">
           <div class="progress-bar progress-bar-success" aria-valuemin="0" aria-valuemax="<%= level.next.required_experience %>" style="width:<%= experience %>%;">
           </div>
@@ -32,10 +38,10 @@
         <% assigns = @user.assigns %>
         <% assigns.each do |assign| %>
         <% mission = assign.mission %>
-          <!--<%= check_box_tag :history, value = assign.mission.id, checked = false, {name: "histories[mission_ids][]", id: "mission_#{mission.id}"} %>-->
+          <%= check_box_tag :history, value = assign.mission.id, checked = false, {name: "histories[mission_ids][]", id: "mission_#{mission.id}"} %>
           <%= label "mission", mission.id, "#{mission.category.name} Lv.#{mission.level.value}: #{mission.description}" %><br>
         <% end %>
-        <!--<%= submit_tag "ミッションの達成" %>-->
+        <%= submit_tag t('Achieve Missions') %>
       </fieldset>
     <% end %>
   <% else %>
@@ -76,20 +82,14 @@
     </div>
 
   <p>  
-  <button type="button" class="btn btn-info">
-  <%= link_to t('activerecord.models.history'), user_histories_path ,:style=>"color:white;"%>
-  </button>
+    <%= link_to t('activerecord.models.history'), user_histories_path, class: "btn btn-info", style: "color:white;"%>
   </p>
 
   <p>  
-  <button type="button" class="btn btn-info">
-  <%= link_to t('devise.passwords.edit.change_your_password', :default => 'Change your password'), edit_user_registration_path ,:style=>"color:white;"%>
-  </button>
+    <%= link_to t('devise.passwords.edit.change_your_password', default: 'Change your password'), edit_user_registration_path, class: "btn btn-info", style: "color:white;"%>
   </p>
 
   <p>
-  <button type="button" class="btn btn-info">
-  <%= link_to t('Back'), root_path ,:style=>"color:white;"%>
-  </button>
+    <%= link_to t('Back'), root_path, class: "btn btn-info", style: "color:white;"%>
   </p>
 </div>
