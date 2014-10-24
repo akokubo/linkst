@@ -1,0 +1,13 @@
+number,name,email,role_id,seminar_id,idm,password,password_confirmation
+ソフトウェア情報学部教員,小久保 温,kokubo@aomori-u.ac.jp,3,nil,3377589724883518,password,password
+社会学部教員,柏谷 至,kasiwaya@aomori-u.ac.jp,2,nil,1463783143548570,password,password
+社会学部教員,佐々木 てる,tsasaki@aomori-u.ac.jp,2,nil,8761233488538608,password,password
+ソフトウェア情報学部教員,角田 均,tsunoda@aomori-u.ac.jp,2,7,2324421618784994,password,password
+経営学部教員,田村 早苗,tamura@aomori-u.ac.jp,2,1,6527122351896095,password,password
+経営学部教員,堀籠 崇,horigome@aomori-u.ac.jp,2,2,4635695260882727,password,password
+経営学部教員,森 宏之,hmori@aomori-u.ac.jp,2,3,8054169397976072,password,password
+経営学部教員,渡部 あさみ,a.watanabe@aomori-u.ac.jp,2,4,4376803324601655,password,password
+社会学部教員,宍戸 聡純,ssd@aomori-u.ac.jp,2,5,2262654665973515,password,password
+社会学部教員,藤 公晴,tokim@aomori-u.ac.jp,2,6,8432213050693824,password,password
+薬学部教員,天内 博康,amanai@aomori-u.ac.jp,2,8,2419194756216564,password,password
+薬学部教員,金光 兵衛,kanemitsu@aomori-u.ac.jp,2,9,3620152522165583,password,password
