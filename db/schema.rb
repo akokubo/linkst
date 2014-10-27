@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141016044124) do
+ActiveRecord::Schema.define(version: 20141027182238) do
 
   create_table "acquisitions", force: true do |t|
     t.integer  "mission_id"
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 20141016044124) do
     t.string   "fpno"
     t.integer  "role_id"
     t.integer  "seminar_id"
+    t.string   "card_number"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

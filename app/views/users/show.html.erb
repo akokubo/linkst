@@ -81,6 +81,13 @@
       </p>
     </div>
 
+    <div class="bg-info">
+      <p>
+        <strong><%= t('activerecord.attributes.user.card_number') %>:</strong>
+        <%= @user.card_number %>
+      </p>
+    </div>
+
   <p>  
     <%= link_to t('activerecord.models.history'), user_histories_path, class: "btn btn-info", style: "color:white;"%>
   </p>

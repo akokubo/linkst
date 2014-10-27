@@ -44,6 +44,7 @@ module Aoca
             name: user.name,
             email: user.email,
             fpno: user.fpno,
+            card_number: user.card_number,
             average_level: user.average_level.value,
             total_experience: user.total_experience,
             next_average_level_required_experience: user.average_level.next.required_experience,
