@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   validates :role_id, presence: true
   validates :name, presence: true
   validates :fpno, presence: true, uniqueness: true
+  validates :card_number, presence: true, uniqueness: true
 
   before_save :upcase_fpno
   after_create :add_statuses_and_assigns
@@ -88,7 +89,15 @@ class User < ActiveRecord::Base
         self.statuses.create(
           category_id: category.id,
           experience: 0)
+=begin
         first_mission = Mission.find_by(category_id: category.id, level_id: level.id)
+        self.assigns.create(mission_id: first_mission.id)
+=end
+      end
+
+      missions_description = %w(書くものを持ってくる 手洗いうがいをする 教科書を持ってくる 友人と共通の話題／趣味で仲を深める)
+      missions_description.each do |mission_description|
+        first_mission = Mission.find_by(description: mission_description)
         self.assigns.create(mission_id: first_mission.id)
       end
     end
