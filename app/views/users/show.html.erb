@@ -35,7 +35,7 @@
     <%= form_tag({controller: :histories, action: :create}, {method: :post}) do %>
       <fieldset>
         <%= hidden_field_tag "histories[user_id]", @user.id %>
-        <% assigns = @user.assigns %>
+        <% assigns = @user.assigns.order('id ASC') %>
         <% assigns.each do |assign| %>
         <% mission = assign.mission %>
           <%= check_box_tag :history, value = assign.mission.id, checked = false, {name: "histories[mission_ids][]", id: "mission_#{mission.id}"} %>
@@ -46,7 +46,8 @@
     <% end %>
   <% else %>
     <ul>
-    <% @user.assigns.each do |assign| %>
+    <% assigns = @user.assigns.order('id ASC') %>
+    <% assigns.each do |assign| %>
       <% mission = assign.mission %>
       <li><strong><%= "#{mission.category.name} Lv.#{mission.level.value}" %></strong>: <%= "#{mission.description}" %></li>
     <% end %>
