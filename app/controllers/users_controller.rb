@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @categories = Category.all
+    @categories = Category.all.order('id ASC')
     @users = User.all
   end
 
@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   private
 
     def set_user
-      @categories = Category.all
+      @categories = Category.all.order('id ASC')
       @user = User.find_by(fpno: params[:fpno])
       if @user
         @user.assigns.each do |assign|

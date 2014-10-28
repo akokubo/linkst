@@ -37,7 +37,7 @@ module Aoca
         get do
           user = User.find_by(fpno: params[:fpno])
           error!({error:"404 Not Found", detail:"user not found with fpno=#{params[:fpno]}"}, 404) unless user
-          categories = Category.all
+          categories = Category.all.order('id ASC')
           hash = {
             number: user.number,
             role: user.role.japanese_name,
@@ -63,7 +63,8 @@ module Aoca
               next_level_required_experience: level.next.required_experience
             }
           end
-          user.assigns.each do |assign|
+          assigns = user.assigns.order('id ASC')
+          assigns.each do |assign|
             mission = assign.mission
             hash[:missions] << {
               id: mission.id,
@@ -145,7 +146,7 @@ module Aoca
           user = User.find_by(fpno: params[:fpno])
           error!({error:"404 Not Found", detail:"user not found with fpno=#{params[:fpno]}"}, 404) unless user
 
-          histories = user.histories
+          histories = user.histories.order('created_at DESC')
           hashes = []
           histories.each do |history|
             hashes << {
