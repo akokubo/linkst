@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   end
 
   def average_level
-    categories = Category.all
+    categories = Category.all.order('id ASC')
     average_experience = total_experience / categories.count
     Level.get_level_from_experience(average_experience)
   end
@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
   def reassign_missions
     self.assigns.destroy_all
 
-    categories = Category.all
+    categories = Category.all.order('id ASC')
 
     random = Random.new
 
@@ -83,7 +83,8 @@ class User < ActiveRecord::Base
       level_required_experience_minimum = Level.minimum(:required_experience)
       level = Level.find_by(required_experience: level_required_experience_minimum)
 
-      categories = Category.all
+      categories = Category.all.order('id ASC')
+
 
       categories.each do |category|
         self.statuses.create(
