@@ -22,7 +22,8 @@ class UsersController < ApplicationController
       @categories = Category.all.order('id ASC')
       @user = User.find_by(fpno: params[:fpno])
       if @user
-        @user.assigns.each do |assign|
+        assigns = @user.assigns.order('id ASC')
+        assigns.each do |assign|
           @user.histories.build(mission_id: assign.mission.id)
         end
       end
