@@ -41,6 +41,7 @@ module Aoca
           hash = {
             number: user.number,
             role: user.role.japanese_name,
+            seminar: user.seminar.name,
             name: user.name,
             email: user.email,
             fpno: user.fpno,
