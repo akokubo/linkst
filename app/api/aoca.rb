@@ -41,7 +41,6 @@ module Aoca
           hash = {
             number: user.number,
             role: user.role.japanese_name,
-            seminar: user.seminar.name,
             name: user.name,
             email: user.email,
             fpno: user.fpno,
@@ -54,6 +53,11 @@ module Aoca
             missions: [
             ]
           }
+          if user.seminar
+            hash["seminar"] = user.seminar.name
+          else
+            hash["seminar"] = ""
+          end
           categories.each do |category|
             status = user.statuses.find_by(category_id: category.id)
             level = Level.get_level_from_experience(status.experience)
