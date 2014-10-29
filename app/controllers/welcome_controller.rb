@@ -8,7 +8,8 @@ class WelcomeController < ApplicationController
       @ranking << User.find(status.user_id)
     end
 
-    @histories = History.order('created_at DESC').limit(5)
+    mission = Mission.find_by(description: 'Webサイトアクセスボーナス')
+    @histories = History.where('mission_id != ?', mission.id).order('created_at DESC').limit(5)
   end
 
   def about
