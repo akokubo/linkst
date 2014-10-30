@@ -8,7 +8,9 @@
       <th rowspan="2"><%= t('activerecord.attributes.mission.category') %></th>
       <th rowspan="2"><%= t('activerecord.attributes.mission.level') %></th>
       <th colspan="<%= @categories.count %>"><%= t('activerecord.models.acquisition') %></th>
-      <th rowspan="2" colspan="3"></th>
+      <% if current_user.has_role?(:administrator) %>
+        <th colspan="3"></th>
+      <% end %>
     </tr>
     <tr>
       <% @categories.each do |category| %>
@@ -31,10 +33,11 @@
         <% @categories.each do |category| %>
           <td><%= mission.acquisitions.find_by(category_id: category.id).experience %></td>
         <% end %>
-
-        <td><%= link_to t('Show'), mission %></td>
-        <td><%= link_to t('Edit'), edit_mission_path(mission) %></td>
-        <td><%= link_to t('Destroy'), mission, method: :delete, data: { confirm: t('Are you sure?') } %></td>
+        <% if current_user.has_role?(:administrator) %>
+          <td><%= link_to t('Show'), mission %></td>
+          <td><%= link_to t('Edit'), edit_mission_path(mission) %></td>
+          <td><%= link_to t('Destroy'), mission, method: :delete, data: { confirm: t('Are you sure?') } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -42,4 +45,6 @@
 
 <br>
 
+<% if current_user.has_role?(:administrator) %>
 <%= link_to t('New ', model: t('activerecord.models.mission')), new_mission_path %>
+<% end %>

@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def histories
-    if current_user.id == @user.id || current_user.has_role?("administrator")
+    if current_user.id == @user.id || current_user.has_role?("administrator") || current_user.has_role?("teacher")
       @histories = History.where(user_id: @user.id).order('created_at DESC')
     end
   end

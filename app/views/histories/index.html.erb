@@ -5,11 +5,15 @@
   <thead>
     <tr>
       <th><%= t('activerecord.attributes.history.created_at') %></th>
+      <th><%= t('activerecord.attributes.user.number') %></th>
       <th><%= t('activerecord.attributes.history.user') %></th>
+      <th><%= t('activerecord.attributes.user.seminar') %></th>
       <th colspan="3"><%= t('activerecord.attributes.history.mission') %></th>
       <th><%= t('activerecord.attributes.user.total_experience') %></th>
       <th><%= t('activerecord.attributes.user.average_level') %></th>
-      <th colspan="3"></th>
+      <% if current_user.has_role?(:administrator) %>
+        <th colspan="3"></th>
+      <% end %>
     </tr>
   </thead>
 
@@ -18,7 +22,13 @@
     <% @histories.each do |history| %>
       <tr>
         <td><%= I18n.l history.created_at %></td>
+        <td><%= history.user.number %></td>
         <td><%= history.user.name %></td>
+        <% if history.user.seminar %>
+          <td><%= history.user.seminar.name %></td>
+        <% else %>
+          <td></td>
+        <% end %>
         <% if history.mission.category %>
           <td><%= history.mission.category.name %></td>
           <td>Lv.<%= history.mission.level.value %></td>
@@ -30,9 +40,11 @@
         </td>
         <td><%= history.recent_experience %> → <%= history.experience %></td>
         <td><%= Level.get_level_from_experience(history.recent_experience / count).value %> → <%= Level.get_level_from_experience(history.experience / count).value %></td>
-        <td><%= link_to t('Show'), history %></td>
-        <td><%= link_to t('Edit'), edit_history_path(history) %></td>
-        <td><%= link_to t('Destroy'), history, method: :delete, data: { confirm: t('Are you sure?') } %></td>
+        <% if current_user.has_role?(:administrator) %>
+          <td><%= link_to t('Show'), history %></td>
+          <td><%= link_to t('Edit'), edit_history_path(history) %></td>
+          <td><%= link_to t('Destroy'), history, method: :delete, data: { confirm: t('Are you sure?') } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -40,4 +52,6 @@
 
 <br>
 
-<%= link_to t('New ', model: t('activerecord.models.history')), new_history_path %>
+<% if current_user.has_role?(:administrator) %>
+  <%= link_to t('New ', model: t('activerecord.models.history')), new_history_path %>
+<% end %>
