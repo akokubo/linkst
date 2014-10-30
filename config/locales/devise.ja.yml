@@ -76,6 +76,8 @@ ja:
       signed_out: ログアウトしました。
       new:
         sign_in: "ログイン"
+      user:
+        already_signed_out "既にログアウトしていました。"
     shared:
       links:
         back: 戻る

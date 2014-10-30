@@ -19,8 +19,13 @@
       <tr>
         <td><%= I18n.l history.created_at %></td>
         <td><%= history.user.name %></td>
-        <td><%= history.mission.category.name %></td>
-        <td>Lv.<%= history.mission.level.value %></td>
+        <% if history.mission.category %>
+          <td><%= history.mission.category.name %></td>
+          <td>Lv.<%= history.mission.level.value %></td>
+        <% else %>
+          <td>ボーナス</td>
+          <td>Lv.0</td>
+        <% end %>
         <td><%= history.mission.description %></td>
         </td>
         <td><%= history.recent_experience %> → <%= history.experience %></td>

@@ -87,7 +87,8 @@ module Aoca
     resource :histories do
       desc "Return a public timeline."
       get '/' do
-        histories = History.order('created_at DESC').limit(10)
+        mission = Mission.find_by(description: 'Webサイトアクセスボーナス')
+        histories = History.where('mission_id != ?', mission.id).order('created_at DESC').limit(10)
         hashes = []
         histories.each do |history|
           hashes << {
@@ -151,7 +152,8 @@ module Aoca
           user = User.find_by(fpno: params[:fpno])
           error!({error:"404 Not Found", detail:"user not found with fpno=#{params[:fpno]}"}, 404) unless user
 
-          histories = user.histories.order('created_at DESC')
+          mission = Mission.find_by(description: 'Webサイトアクセスボーナス')
+          histories = user.histories.where('mission_id != ?', mission.id).order('created_at DESC')
           hashes = []
           histories.each do |history|
             hashes << {
