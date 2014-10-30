@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def index
     @categories = Category.all.order('id ASC')
-    @users = User.all
+    @users = User.all.order('id ASC')
   end
 
   def show
