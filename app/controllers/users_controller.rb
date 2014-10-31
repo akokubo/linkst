@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :histories]
+  before_action :award_web_access_bonus!, only: [:show, :histories]
   load_and_authorize_resource
 
   def index

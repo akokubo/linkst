@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :award_web_access_bonus!
 
   class Forbidden < StandardError; end
   class NotFound < StandardError; end
@@ -41,21 +40,22 @@ class ApplicationController < ActionController::Base
   protected
 
     def award_web_access_bonus!
+      mission = Mission.find_by(description: 'Webサイトアクセスボーナス')
       user = current_user
+      today_date = Date.today
       if user
-        if !user.recent_web_access_bonus_awarded_on || user.recent_web_access_bonus_awarded_on < Date.today
-          mission = Mission.find_by(description: 'Webサイトアクセスボーナス')
-          history = History.new(user_id: current_user.id, mission_id: mission.id)
+        if !user.recent_web_access_bonus_awarded_on || user.recent_web_access_bonus_awarded_on < today_date
+          user.update(recent_web_access_bonus_awarded_on: today_date)
+          history = History.new(user_id: user.id, mission_id: mission.id)
           history.recent_experience = user.total_experience
+          history.experience = history.recent_experience + 8
+          history.save
           mission.acquisitions.each do |acquisition|
             category_id = acquisition.category_id
             status = user.statuses.find_by(category_id: category_id)
             status.experience += acquisition.experience
             status.save
           end
-          history.experience = user.reload.total_experience
-          history.save
-          user.update(recent_web_access_bonus_awarded_on: Date.today)
         end
       end
     end
