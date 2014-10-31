@@ -1,4 +1,6 @@
 class WelcomeController < ApplicationController
+  before_action :award_web_access_bonus!, only: [:index, :about, :contact]
+
   def index
     statuses = Status.group(:user_id)
       .select('user_id, SUM(experience) AS total_experience')
