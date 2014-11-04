@@ -1,4 +1,4 @@
 class Seminar < ActiveRecord::Base
-  has_one :user
+  has_many :users
   validates :name, presence: true, uniqueness: true
 end
