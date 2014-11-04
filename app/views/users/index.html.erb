@@ -1,6 +1,8 @@
 <% provide :title,  t("Listing ", model: t('activerecord.models.user').pluralize(:locale)) %>
 <h1><%= yield(:title) %></h1>
 
+<%= will_paginate %>
+
 <table>
   <thead>
     <tr>
@@ -31,5 +33,6 @@
   </tbody>
 </table>
 
-<br>
+<%= will_paginate %>
 
+<br>

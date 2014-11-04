@@ -5,7 +5,7 @@ class MissionsController < ApplicationController
   # GET /missions
   # GET /missions.json
   def index
-    @missions = Mission.all
+    @missions = Mission.paginate(page: params[:page])
     @categories = Category.all
   end
 

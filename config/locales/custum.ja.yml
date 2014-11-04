@@ -39,3 +39,6 @@ ja:
   "Recent Histories": 最近のミッションの履歴
   "Required Experiments for Next Level": 次のレベルまで
   "Achieve Missions": ミッションの達成
+  will_paginate:
+    previous_label: "←前へ"
+    next_label: "次へ→"
