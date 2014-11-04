@@ -1,6 +1,8 @@
 <% provide :title,  t("Listing ", model: t('activerecord.models.mission').pluralize(:locale)) %>
 <h1><%= yield(:title) %></h1>
 
+<%= will_paginate %>
+
 <table>
   <thead>
     <tr>
@@ -8,7 +10,7 @@
       <th rowspan="2"><%= t('activerecord.attributes.mission.category') %></th>
       <th rowspan="2"><%= t('activerecord.attributes.mission.level') %></th>
       <th colspan="<%= @categories.count %>"><%= t('activerecord.models.acquisition') %></th>
-      <% if current_user.has_role?(:administrator) %>
+      <% if current_user.has_role?("administrator") %>
         <th colspan="3"></th>
       <% end %>
     </tr>
@@ -33,7 +35,7 @@
         <% @categories.each do |category| %>
           <td><%= mission.acquisitions.find_by(category_id: category.id).experience %></td>
         <% end %>
-        <% if current_user.has_role?(:administrator) %>
+        <% if current_user.has_role?("administrator") %>
           <td><%= link_to t('Show'), mission %></td>
           <td><%= link_to t('Edit'), edit_mission_path(mission) %></td>
           <td><%= link_to t('Destroy'), mission, method: :delete, data: { confirm: t('Are you sure?') } %></td>
@@ -43,8 +45,10 @@
   </tbody>
 </table>
 
+<%= will_paginate %>
+
 <br>
 
-<% if current_user.has_role?(:administrator) %>
+<% if current_user.has_role?("administrator") %>
 <%= link_to t('New ', model: t('activerecord.models.mission')), new_mission_path %>
 <% end %>

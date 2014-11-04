@@ -69,6 +69,7 @@ ja:
         mission_id: 'ミッションID'
       seminar:
         name: 'ゼミ名'
+        users: 'メンバー'
     successful:
       messages:
         created: "%{model}を保存しました。"

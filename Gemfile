@@ -70,6 +70,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 gem 'devise'
 gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 gem 'grape'
 gem 'faker'
 gem 'cancancan'

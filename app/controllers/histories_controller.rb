@@ -5,7 +5,7 @@ class HistoriesController < ApplicationController
   # GET /histories
   # GET /histories.json
   def index
-    @histories = History.all.order('created_at DESC')
+    @histories = History.paginate(page: params[:page]).order('created_at DESC')
   end
 
   # GET /histories/1
