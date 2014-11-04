@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
   def histories
     if current_user.id == @user.id || current_user.has_role?("administrator") || current_user.has_role?("teacher")
-      @histories = History.where(user_id: @user.id).paginate(page: params[:page]).order('created_at DESC')
+      @histories = @user.histories.paginate(page: params[:page]).order('created_at DESC')
     end
   end
 

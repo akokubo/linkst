@@ -1,7 +1,7 @@
 <% provide :title,  t("Listing ", model: t('activerecord.models.history').pluralize(:locale)) %>
 <h1><%= yield(:title) %></h1>
 
-<%= will_paginate %>
+<%= will_paginate @histories %>
 
 <table>
   <thead>
@@ -37,7 +37,7 @@
   </tbody>
 </table>
 
-<%= will_paginate %>
+<%= will_paginate @histories %>
 
 <br>
 <%= link_to t('Back'), user_path %>
