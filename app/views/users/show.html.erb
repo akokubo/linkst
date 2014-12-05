@@ -6,7 +6,7 @@
   <%= @user.total_experience %> /
   <%= @user.average_level.next.required_experience * @categories.count %>
   <div class="progress">
-    <div class="progress-bar" aria-valuemin="0" aria-valuemax="<%=@user.average_level.next.required_experience * @categories.count%>" style="width:<%= @user.total_experience %>%;">
+    <div class="progress-bar" aria-valuemin="0" aria-valuemax="<%=@user.average_level.next.required_experience * @categories.count%>" style="width:<%= 100.0*@user.total_experience/@user.average_level.next.required_experience/@categories.count %>%;">
     </div>
   </div>  
 
@@ -21,7 +21,7 @@
         <%= experience %> /
         <%= level.next.required_experience %>
         <div class="progress">
-          <div class="progress-bar progress-bar-success" aria-valuemin="0" aria-valuemax="<%= level.next.required_experience %>" style="width:<%= experience %>%;">
+          <div class="progress-bar progress-bar-success" aria-valuemin="0" aria-valuemax="<%= level.next.required_experience %>" aria-valuenow="<%= experience %>" style="width: <%= 100.0*experience/level.next.required_experience %>%;">
           </div>
         </div>
       </li>
